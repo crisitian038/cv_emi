@@ -171,6 +171,100 @@
     .wave-bar:nth-child(6) { animation-delay: 0.35s; }
     .wave-bar:nth-child(7) { animation-delay: 0.5s; }
     .wave-bar:nth-child(8) { animation-delay: 0.1s; }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-btn {
+      color: #94A3B8;
+      transition: all 0.25s ease;
+      line-height: 1;
+    }
+    .lang-btn:hover {
+      color: #FFFFFF;
+    }
+    .lang-btn-active {
+      background: linear-gradient(90deg, #00E5FF, #66E8FF);
+      color: #020B24 !important;
+      box-shadow: 0 8px 20px -8px rgba(0, 229, 255, 0.7);
+    }
+    .lang-btn-active:hover {
+      color: #020B24;
+    }
+
+    /* ===== VIDEO CARDS ===== */
+    .video-frame {
+      position: relative;
+      background: #000;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.08) inset;
+    }
+    .video-frame video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+    }
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%);
+      cursor: pointer;
+      transition: opacity 0.4s ease;
+      z-index: 5;
+    }
+    .video-play-overlay.hidden-overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .video-play-btn {
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #00E5FF, #66E8FF);
+      color: #020B24;
+      box-shadow: 0 0 0 0 rgba(0,229,255,0.6), 0 15px 35px -5px rgba(0,229,255,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse-ring 2.5s infinite;
+    }
+    .video-play-overlay:hover .video-play-btn {
+      transform: scale(1.1);
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(0,229,255,0.6), 0 15px 35px -5px rgba(0,229,255,0.5); }
+      70% { box-shadow: 0 0 0 22px rgba(0,229,255,0), 0 15px 35px -5px rgba(0,229,255,0.5); }
+      100% { box-shadow: 0 0 0 0 rgba(0,229,255,0), 0 15px 35px -5px rgba(0,229,255,0.5); }
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0.65rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5rem;
+      height: 1.1rem;
+      background: #000;
+      border-radius: 9999px;
+      z-index: 10;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .phone-notch::after {
+      content: '';
+      position: absolute;
+      right: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: radial-gradient(circle at 30% 30%, #1e3a5f, #000);
+      border: 1px solid rgba(0,229,255,0.25);
+    }
   </style>
 </head>
 
@@ -205,19 +299,28 @@
       </a>
 
       <div class="hidden md:flex items-center gap-1 lg:gap-2">
-        <a href="#hero" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Inicio</a>
-        <a href="#sobre-mi" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Sobre Mí</a>
-        <a href="#experiencia" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Experiencia</a>
-        <a href="#habilidades" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Habilidades</a>
-        <a href="#proyectos" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Proyectos</a>
+        <a href="#hero" data-i18n="nav.home" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Inicio</a>
+        <a href="#sobre-mi" data-i18n="nav.about" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Sobre Mí</a>
+        <a href="#experiencia" data-i18n="nav.experience" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Experiencia</a>
+        <a href="#habilidades" data-i18n="nav.skills" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Habilidades</a>
+        <a href="#proyectos" data-i18n="nav.projects" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Proyectos</a>
+        <a href="#videos" data-i18n="nav.videos" class="px-3 py-1.5 text-xs lg:text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Videos</a>
       </div>
 
-      <div class="hidden sm:flex items-center gap-3">
-        <a href="https://instagram.com/emi.icy" target="_blank" rel="noopener noreferrer" class="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors" title="Instagram @emi.icy">
+      <div class="flex items-center gap-2 sm:gap-3">
+
+        <!-- ============ SELECTOR DE IDIOMA ============ -->
+        <div id="langSwitcher" class="flex items-center gap-0.5 p-0.5 rounded-xl bg-white/5 border border-white/10" role="group" aria-label="Language selector">
+          <button type="button" data-lang="es" class="lang-btn px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] font-mono font-bold tracking-wide">ES</button>
+          <button type="button" data-lang="en" class="lang-btn px-2 sm:px-2.5 py-1.5 rounded-lg text-[11px] font-mono font-bold tracking-wide">EN</button>
+        </div>
+        <!-- ============ FIN SELECTOR DE IDIOMA ============ -->
+
+        <a href="https://instagram.com/emi.icy" target="_blank" rel="noopener noreferrer" class="hidden sm:flex p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-colors" title="Instagram @emi.icy">
           <i data-lucide="instagram" class="w-4 h-4"></i>
         </a>
-        <a href="#contacto" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-orange to-brand-amber text-brand-black font-semibold text-xs tracking-wide rounded-xl shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/40 hover:scale-[1.02] transition-all">
-          <span>Hablemos</span>
+        <a href="#contacto" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-orange to-brand-amber text-brand-black font-semibold text-xs tracking-wide rounded-xl shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/40 hover:scale-[1.02] transition-all">
+          <span data-i18n="nav.talk">Hablemos</span>
           <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
         </a>
       </div>
@@ -230,13 +333,14 @@
 
     <div id="mobileMenu" class="hidden md:hidden max-w-6xl mx-auto mt-2 glass-nav rounded-2xl p-4 shadow-2xl transition-all">
       <div class="flex flex-col gap-2">
-        <a href="#hero" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Inicio</a>
-        <a href="#sobre-mi" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Sobre Mí</a>
-        <a href="#experiencia" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Experiencia</a>
-        <a href="#habilidades" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Habilidades</a>
-        <a href="#proyectos" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Proyectos</a>
+        <a href="#hero" data-i18n="nav.home" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Inicio</a>
+        <a href="#sobre-mi" data-i18n="nav.about" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Sobre Mí</a>
+        <a href="#experiencia" data-i18n="nav.experience" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Experiencia</a>
+        <a href="#habilidades" data-i18n="nav.skills" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Habilidades</a>
+        <a href="#proyectos" data-i18n="nav.projects" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Proyectos</a>
+        <a href="#videos" data-i18n="nav.videos" class="mobile-nav-link px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/5 font-medium text-sm">Videos</a>
         <a href="#contacto" class="mobile-nav-link px-4 py-2.5 rounded-xl text-brand-orange font-semibold text-sm flex items-center justify-between bg-brand-orange/10 mt-1">
-          <span>Iniciar Contacto</span>
+          <span data-i18n="nav.mobileContact">Iniciar Contacto</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
       </div>
@@ -259,7 +363,7 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span>Disponible para Producción Audiovisual & Estrategia Digital</span>
+            <span data-i18n="hero.badge">Disponible para Producción Audiovisual & Estrategia Digital</span>
           </div>
 
           <div class="space-y-3">
@@ -270,13 +374,16 @@
 
             <div class="flex flex-wrap items-center gap-2 pt-2">
               <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono font-medium text-slate-300 flex items-center gap-1.5">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-amber"></i> Creador Digital
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-amber"></i>
+                <span data-i18n="hero.tag1">Creador Digital</span>
               </span>
               <span class="px-3 py-1 rounded-lg bg-brand-orange/10 border border-brand-orange/30 text-xs font-mono font-medium text-brand-orange flex items-center gap-1.5">
-                <i data-lucide="film" class="w-3.5 h-3.5"></i> Animador 2D/3D
+                <i data-lucide="film" class="w-3.5 h-3.5"></i>
+                <span data-i18n="hero.tag2">Animador 2D/3D</span>
               </span>
               <span class="px-3 py-1 rounded-lg bg-brand-purple/10 border border-brand-purple/30 text-xs font-mono font-medium text-sky-300 flex items-center gap-1.5">
-                <i data-lucide="video" class="w-3.5 h-3.5"></i> Productor Audiovisual
+                <i data-lucide="video" class="w-3.5 h-3.5"></i>
+                <span data-i18n="hero.tag3">Productor Audiovisual</span>
               </span>
             </div>
           </div>
@@ -288,8 +395,8 @@
                 <i data-lucide="map-pin" class="w-4 h-4"></i>
               </div>
               <div class="min-w-0">
-                <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Ubicación</p>
-                <p class="text-sm font-semibold text-white truncate">Cuernavaca, Morelos</p>
+                <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider" data-i18n="hero.locationLabel">Ubicación</p>
+                <p class="text-sm font-semibold text-white truncate" data-i18n="hero.locationValue">Cuernavaca, Morelos</p>
               </div>
             </div>
 
@@ -298,8 +405,8 @@
                 <i data-lucide="graduation-cap" class="w-4 h-4"></i>
               </div>
               <div class="min-w-0">
-                <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Formación Académica</p>
-                <p class="text-xs font-semibold text-white truncate" title="Licenciatura en Diseño Digital - Animación y Producción Audiovisual, UTEZ (2021 - 2025)">
+                <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider" data-i18n="hero.eduLabel">Formación Académica</p>
+                <p class="text-xs font-semibold text-white truncate" data-i18n="hero.eduValue" data-i18n-title="hero.eduValueTitle" title="Licenciatura en Diseño Digital - Animación y Producción Audiovisual, UTEZ (2021 - 2025)">
                   Lic. Diseño Digital • UTEZ (2021-2025)
                 </p>
               </div>
@@ -310,19 +417,19 @@
           <div class="flex flex-wrap items-center gap-4 pt-3 w-full">
             <a href="#proyectos" class="flex-1 sm:flex-initial inline-flex justify-center items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-orange to-brand-amber text-brand-black font-bold text-sm tracking-wide shadow-xl shadow-brand-orange/25 hover:shadow-brand-orange/50 hover:scale-[1.02] transition-all">
               <i data-lucide="layers" class="w-4 h-4"></i>
-              <span>Explorar Evidencias</span>
+              <span data-i18n="hero.btnExplore">Explorar Evidencias</span>
             </a>
 
             <a href="#contacto" class="flex-1 sm:flex-initial inline-flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl glass-card text-slate-200 hover:text-white hover:border-white/20 font-semibold text-sm transition-all hover:scale-[1.02]">
               <i data-lucide="send" class="w-4 h-4 text-brand-amber"></i>
-              <span>Contacto Directo</span>
+              <span data-i18n="hero.btnContact">Contacto Directo</span>
             </a>
           </div>
 
           <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-400">
-            <span class="font-mono text-[11px] uppercase tracking-wider text-slate-500">Conexión Rápida:</span>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-slate-500" data-i18n="hero.quickConnect">Conexión Rápida:</span>
             
-            <button onclick="copyToClipboard('20203dd107@utez.edu.mx', 'Correo copiado al portapapeles')" class="hover:text-brand-orange transition-colors flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-lg" title="Copiar correo">
+            <button onclick="copyToClipboard('20203dd107@utez.edu.mx', 'toast.emailCopied')" class="hover:text-brand-orange transition-colors flex items-center gap-1.5 bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-lg" data-i18n-title="common.copyEmail" title="Copiar correo">
               <i data-lucide="mail" class="w-3.5 h-3.5"></i>
               <span>20203dd107@utez.edu.mx</span>
             </button>
@@ -411,12 +518,12 @@
                     <div class="space-y-0.5 min-w-0">
                       <p class="text-[10px] font-mono text-brand-orange uppercase tracking-widest flex items-center gap-1.5">
                         <i data-lucide="camera" class="w-3 h-3"></i>
-                        En Cámara
+                        <span data-i18n="hero.onCamera">En Cámara</span>
                       </p>
                       <p class="font-display font-extrabold text-white text-lg sm:text-xl leading-tight drop-shadow-2xl">
                         José Emiliano<br>Sánchez Esquivel
                       </p>
-                      <p class="text-[11px] font-mono text-slate-300/90 tracking-wide">
+                      <p class="text-[11px] font-mono text-slate-300/90 tracking-wide" data-i18n="hero.role">
                         Creador Digital • Director • Animador
                       </p>
                     </div>
@@ -448,15 +555,15 @@
               <div class="p-4 bg-brand-card/90 border-t border-white/10 grid grid-cols-3 gap-2 text-center">
                 <div>
                   <p class="text-lg font-display font-extrabold text-white">+862</p>
-                  <p class="text-[10px] font-mono text-slate-400 uppercase">Leads Generados</p>
+                  <p class="text-[10px] font-mono text-slate-400 uppercase" data-i18n="hero.stat1">Leads Generados</p>
                 </div>
                 <div class="border-x border-white/10">
                   <p class="text-lg font-display font-extrabold text-brand-orange">+112%</p>
-                  <p class="text-[10px] font-mono text-slate-400 uppercase">Tráfico Web</p>
+                  <p class="text-[10px] font-mono text-slate-400 uppercase" data-i18n="hero.stat2">Tráfico Web</p>
                 </div>
                 <div>
                   <p class="text-lg font-display font-extrabold text-sky-400">654K</p>
-                  <p class="text-[10px] font-mono text-slate-400 uppercase">Impresiones</p>
+                  <p class="text-[10px] font-mono text-slate-400 uppercase" data-i18n="hero.stat3">Impresiones</p>
                 </div>
               </div>
 
@@ -476,9 +583,9 @@
         <div class="flex flex-col items-start space-y-3">
           <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-orange uppercase tracking-widest font-semibold">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-orange"></span>
-            <span>// 01. Visión y Propósito</span>
+            <span data-i18n="about.tag">// 01. Visión y Propósito</span>
           </div>
-          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white" data-i18n="about.title">
             Creatividad impulsada por <span class="text-gradient-orange">estrategia comercial</span>
           </h2>
         </div>
@@ -491,22 +598,22 @@
               <i data-lucide="quote" class="w-8 h-8"></i>
             </div>
             
-            <p class="font-display text-xl sm:text-2xl md:text-3xl text-slate-100 font-medium leading-relaxed tracking-tight">
+            <p class="font-display text-xl sm:text-2xl md:text-3xl text-slate-100 font-medium leading-relaxed tracking-tight" data-i18n="about.quote">
               "Creador digital enfocado en <span class="text-brand-amber font-bold">conectar la estrategia con la creatividad</span> para hacer que las marcas no solo se vean increíbles, sino que también <span class="text-brand-orange font-bold underline decoration-brand-orange/50 underline-offset-4">vendan y cuenten grandes historias</span>."
             </p>
 
             <div class="pt-4 flex flex-wrap items-center gap-6 text-sm text-slate-400 border-t border-white/10">
               <div class="flex items-center gap-2">
                 <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-                <span>Enfoque en métricas de conversión y ventas</span>
+                <span data-i18n="about.check1">Enfoque en métricas de conversión y ventas</span>
               </div>
               <div class="flex items-center gap-2">
                 <i data-lucide="check-circle" class="w-4 h-4 text-brand-orange"></i>
-                <span>Storytelling cinematográfico de alta retención</span>
+                <span data-i18n="about.check2">Storytelling cinematográfico de alta retención</span>
               </div>
               <div class="flex items-center gap-2">
                 <i data-lucide="check-circle" class="w-4 h-4 text-sky-400"></i>
-                <span>Branding visual integral y escalable</span>
+                <span data-i18n="about.check3">Branding visual integral y escalable</span>
               </div>
             </div>
           </div>
@@ -519,8 +626,8 @@
             <div class="w-12 h-12 rounded-xl bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center text-brand-orange">
               <i data-lucide="trending-up" class="w-6 h-6"></i>
             </div>
-            <h3 class="font-display text-lg font-bold text-white">Estrategia & Crecimiento</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <h3 class="font-display text-lg font-bold text-white" data-i18n="about.card1.title">Estrategia & Crecimiento</h3>
+            <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about.card1.text">
               El diseño sin rumbo no genera retorno. Cada pieza audiovisual, campaña de Google/Facebook Ads y diseño UI/UX se orienta a captar leads, fidelizar y multiplicar la tasa de conversión.
             </p>
           </div>
@@ -529,8 +636,8 @@
             <div class="w-12 h-12 rounded-xl bg-brand-amber/15 border border-brand-amber/30 flex items-center justify-center text-brand-amber">
               <i data-lucide="clapperboard" class="w-6 h-6"></i>
             </div>
-            <h3 class="font-display text-lg font-bold text-white">Storytelling & Ritmo</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <h3 class="font-display text-lg font-bold text-white" data-i18n="about.card2.title">Storytelling & Ritmo</h3>
+            <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about.card2.text">
               Construcción narrativa con gancho inicial en los primeros 3 segundos. Montaje dinámico, diseño sonoro envolvente y etalonaje (color grading) que transmiten el alma de la marca.
             </p>
           </div>
@@ -539,8 +646,8 @@
             <div class="w-12 h-12 rounded-xl bg-brand-purple/15 border border-brand-purple/30 flex items-center justify-center text-sky-400">
               <i data-lucide="palette" class="w-6 h-6"></i>
             </div>
-            <h3 class="font-display text-lg font-bold text-white">Identidad Visual & 3D</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <h3 class="font-display text-lg font-bold text-white" data-i18n="about.card3.title">Identidad Visual & 3D</h3>
+            <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about.card3.text">
               Desarrollo de universos de marca consistentes: logotipos, paletas cromáticas estructuradas, manuales de identidad y animaciones en Motion Graphics y Blender con estándar pro.
             </p>
           </div>
@@ -559,12 +666,12 @@
         <div class="flex flex-col items-start space-y-3">
           <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-purple uppercase tracking-widest font-semibold">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-purple"></span>
-            <span>// 02. Trayectoria Laboral</span>
+            <span data-i18n="exp.tag">// 02. Trayectoria Laboral</span>
           </div>
-          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white" data-i18n="exp.title">
             Experiencia Profesional y <span class="text-gradient-purple">Resultados Clave</span>
           </h2>
-          <p class="text-sm sm:text-base text-slate-400 max-w-2xl">
+          <p class="text-sm sm:text-base text-slate-400 max-w-2xl" data-i18n="exp.desc">
             Historial de roles estratégicos demostrando impacto en generación de tráfico, crecimiento de comunidad y creación publicitaria integral.
           </p>
         </div>
@@ -583,7 +690,7 @@
                     <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
                       RED EDUCATIVA MÉXICO
                     </h3>
-                    <span class="px-2.5 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange text-xs font-mono font-bold border border-brand-orange/30">
+                    <span class="px-2.5 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange text-xs font-mono font-bold border border-brand-orange/30" data-i18n="exp.job1.badge">
                       Rol Destacado
                     </span>
                   </div>
@@ -599,23 +706,23 @@
               </div>
 
               <div class="space-y-3">
-                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold">Responsabilidades Clave:</p>
+                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold" data-i18n="exp.respLabel">Responsabilidades Clave:</p>
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-300">
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="camera" class="w-4 h-4 text-brand-orange shrink-0 mt-0.5"></i>
-                    <span>Captura y edición de fotografía profesional para plataformas de aprendizaje y branding institucional.</span>
+                    <span data-i18n="exp.job1.r1">Captura y edición de fotografía profesional para plataformas de aprendizaje y branding institucional.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="target" class="w-4 h-4 text-brand-orange shrink-0 mt-0.5"></i>
-                    <span>Campañas publicitarias de alto rendimiento en Google Ads y Facebook Ads orientadas a captación de prospectos.</span>
+                    <span data-i18n="exp.job1.r2">Campañas publicitarias de alto rendimiento en Google Ads y Facebook Ads orientadas a captación de prospectos.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="sparkles" class="w-4 h-4 text-brand-orange shrink-0 mt-0.5"></i>
-                    <span>Gestión de cuentas multicanal logrando incrementos de engagement comprobados del 60%.</span>
+                    <span data-i18n="exp.job1.r3">Gestión de cuentas multicanal logrando incrementos de engagement comprobados del 60%.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="layout" class="w-4 h-4 text-brand-orange shrink-0 mt-0.5"></i>
-                    <span>Diseño UI/UX para plataforma web, materiales impresos y conceptualización de campañas creativas para Facebook Ads, Google Ads y TikTok Ads.</span>
+                    <span data-i18n="exp.job1.r4">Diseño UI/UX para plataforma web, materiales impresos y conceptualización de campañas creativas para Facebook Ads, Google Ads y TikTok Ads.</span>
                   </li>
                 </ul>
               </div>
@@ -623,28 +730,28 @@
               <div class="pt-4 border-t border-white/10">
                 <p class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold mb-3 flex items-center gap-1.5">
                   <i data-lucide="activity" class="w-3.5 h-3.5"></i>
-                  <span>Métricas de Rendimiento Obtenidas:</span>
+                  <span data-i18n="exp.metricsLabel">Métricas de Rendimiento Obtenidas:</span>
                 </p>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   
                   <div class="glass-card p-3 rounded-xl border-emerald-500/20 bg-emerald-500/5">
                     <p class="font-display font-extrabold text-2xl text-emerald-400">+862</p>
-                    <p class="text-[11px] font-mono text-slate-300 mt-0.5">Nuevos Leads</p>
+                    <p class="text-[11px] font-mono text-slate-300 mt-0.5" data-i18n="exp.m1">Nuevos Leads</p>
                   </div>
 
                   <div class="glass-card p-3 rounded-xl border-brand-orange/20 bg-brand-orange/5">
                     <p class="font-display font-extrabold text-2xl text-brand-orange">+112%</p>
-                    <p class="text-[11px] font-mono text-slate-300 mt-0.5">Tráfico Web</p>
+                    <p class="text-[11px] font-mono text-slate-300 mt-0.5" data-i18n="hero.stat2">Tráfico Web</p>
                   </div>
 
                   <div class="glass-card p-3 rounded-xl border-sky-500/20 bg-sky-500/5">
                     <p class="font-display font-extrabold text-2xl text-sky-400">654k</p>
-                    <p class="text-[11px] font-mono text-slate-300 mt-0.5">Impresiones</p>
+                    <p class="text-[11px] font-mono text-slate-300 mt-0.5" data-i18n="hero.stat3">Impresiones</p>
                   </div>
 
                   <div class="glass-card p-3 rounded-xl border-cyan-500/20 bg-cyan-500/5">
                     <p class="font-display font-extrabold text-2xl text-cyan-400">+60%</p>
-                    <p class="text-[11px] font-mono text-slate-300 mt-0.5">Engagement</p>
+                    <p class="text-[11px] font-mono text-slate-300 mt-0.5" data-i18n="exp.m4">Engagement</p>
                   </div>
 
                 </div>
@@ -664,7 +771,7 @@
                   <h3 class="font-display text-xl sm:text-2xl font-bold text-white">CONTENDER</h3>
                   <p class="text-sky-300 font-medium text-base mt-1 flex items-center gap-2">
                     <i data-lucide="palette" class="w-4 h-4"></i>
-                    <span>Diseñador Gráfico</span>
+                    <span data-i18n="exp.job2.role">Diseñador Gráfico</span>
                   </p>
                 </div>
                 <div class="flex items-center gap-2 text-xs font-mono text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 w-fit">
@@ -674,19 +781,19 @@
               </div>
 
               <div class="space-y-3">
-                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold">Responsabilidades Clave:</p>
+                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold" data-i18n="exp.respLabel">Responsabilidades Clave:</p>
                 <ul class="space-y-2.5 text-sm text-slate-300">
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0 mt-0.5"></i>
-                    <span>Captura y edición de fotografía de alta velocidad y ambiente deportivo.</span>
+                    <span data-i18n="exp.job2.r1">Captura y edición de fotografía de alta velocidad y ambiente deportivo.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0 mt-0.5"></i>
-                    <span>Content creator y community manager para potenciar la presencia de marca.</span>
+                    <span data-i18n="exp.job2.r2">Content creator y community manager para potenciar la presencia de marca.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400 shrink-0 mt-0.5"></i>
-                    <span>Creación integral de logotipos, manuales de marca e identidad gráfica visual.</span>
+                    <span data-i18n="exp.job2.r3">Creación integral de logotipos, manuales de marca e identidad gráfica visual.</span>
                   </li>
                 </ul>
               </div>
@@ -705,7 +812,7 @@
                   <h3 class="font-display text-xl sm:text-2xl font-bold text-white">ADS AGENCY</h3>
                   <p class="text-slate-300 font-medium text-base mt-1 flex items-center gap-2">
                     <i data-lucide="users" class="w-4 h-4"></i>
-                    <span>Community Manager</span>
+                    <span data-i18n="exp.job3.role">Community Manager</span>
                   </p>
                 </div>
                 <div class="flex items-center gap-2 text-xs font-mono text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 w-fit">
@@ -715,25 +822,163 @@
               </div>
 
               <div class="space-y-3">
-                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold">Responsabilidades Clave:</p>
+                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold" data-i18n="exp.respLabel">Responsabilidades Clave:</p>
                 <ul class="space-y-2.5 text-sm text-slate-300">
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5"></i>
-                    <span>Creación de contenido publicitario y piezas gráficas para diversas empresas comerciales.</span>
+                    <span data-i18n="exp.job3.r1">Creación de contenido publicitario y piezas gráficas para diversas empresas comerciales.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5"></i>
-                    <span>Creación y estandarización de identidades visuales corporativas.</span>
+                    <span data-i18n="exp.job3.r2">Creación y estandarización de identidades visuales corporativas.</span>
                   </li>
                   <li class="flex items-start gap-2.5">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5"></i>
-                    <span>Gestión estratégica y calendarización de cuentas en redes sociales.</span>
+                    <span data-i18n="exp.job3.r3">Gestión estratégica y calendarización de cuentas en redes sociales.</span>
                   </li>
                 </ul>
               </div>
 
             </div>
           </div>
+
+          <!-- ============================================================ -->
+          <!-- 4. FUNERARIA SIPREF CUERNAVACA (FREELANCE)                   -->
+          <!-- ============================================================ -->
+          <div class="relative group">
+            <div class="absolute -left-[30px] sm:-left-[38px] top-1.5 w-5 h-5 rounded-full bg-brand-amber border-4 border-brand-black shadow-lg shadow-brand-amber/50"></div>
+            
+            <div class="glass-card-interactive rounded-2xl p-6 sm:p-8 space-y-5">
+              
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2.5">
+                    <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+                      FUNERARIA SIPREF CUERNAVACA
+                    </h3>
+                    <span class="px-2.5 py-0.5 rounded-full bg-brand-amber/20 text-brand-amber text-xs font-mono font-bold border border-brand-amber/30 flex items-center gap-1.5" data-i18n="exp.job4.badge">
+                      <i data-lucide="briefcase" class="w-3 h-3"></i>
+                      Freelance
+                    </span>
+                  </div>
+                  <p class="text-brand-amber font-medium text-base mt-1 flex items-center gap-2">
+                    <i data-lucide="pen-tool" class="w-4 h-4"></i>
+                    <span data-i18n="exp.job4.role">Diseñador Gráfico & Creador Audiovisual</span>
+                  </p>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 w-fit">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-brand-amber"></i>
+                  <span data-i18n="exp.job4.period">Freelance</span>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold" data-i18n="exp.respLabel">Responsabilidades Clave:</p>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-amber shrink-0 mt-0.5"></i>
+                    <span data-i18n="exp.job4.r1">Diseño de material publicitario impreso y de gran formato (lonas, banners corporativos, tarjetas de presentación).</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-amber shrink-0 mt-0.5"></i>
+                    <span data-i18n="exp.job4.r2">Edición de video e imagen digital para comunicación institucional y promocional.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-amber shrink-0 mt-0.5"></i>
+                    <span data-i18n="exp.job4.r3">Mantener la coherencia visual e identidad de marca respetando la sensibilidad del sector.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pt-4 border-t border-white/10">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="printer" class="w-3.5 h-3.5 text-brand-amber"></i>
+                    <span data-i18n="exp.job4.tag1">Gran Formato</span>
+                  </span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="video" class="w-3.5 h-3.5 text-brand-amber"></i>
+                    <span data-i18n="exp.job4.tag2">Edición de Video</span>
+                  </span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-amber"></i>
+                    <span data-i18n="exp.job4.tag3">Identidad de Marca</span>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- ============================================================ -->
+          <!-- FIN FUNERARIA SIPREF CUERNAVACA (FREELANCE)                  -->
+          <!-- ============================================================ -->
+
+          <!-- ============================================================ -->
+          <!-- 5. KRISSIA'S CLEANING SERVICES (FREELANCE)                   -->
+          <!-- ============================================================ -->
+          <div class="relative group">
+            <div class="absolute -left-[30px] sm:-left-[38px] top-1.5 w-5 h-5 rounded-full bg-teal-400 border-4 border-brand-black shadow-lg shadow-teal-400/50"></div>
+            
+            <div class="glass-card-interactive rounded-2xl p-6 sm:p-8 space-y-5">
+              
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2.5">
+                    <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+                      KRISSIA'S CLEANING SERVICES
+                    </h3>
+                    <span class="px-2.5 py-0.5 rounded-full bg-teal-400/20 text-teal-300 text-xs font-mono font-bold border border-teal-400/30 flex items-center gap-1.5" data-i18n="exp.job5.badge">
+                      <i data-lucide="briefcase" class="w-3 h-3"></i>
+                      Freelance
+                    </span>
+                  </div>
+                  <p class="text-teal-300 font-medium text-base mt-1 flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span data-i18n="exp.job5.role">Content Creator & Digital Designer</span>
+                  </p>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono text-slate-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 w-fit">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-teal-400"></i>
+                  <span data-i18n="exp.job5.period">Freelance</span>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold" data-i18n="exp.respLabel">Responsabilidades Clave:</p>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-teal-400 shrink-0 mt-0.5"></i>
+                    <span data-i18n="exp.job5.r1">Creación de contenido audiovisual y piezas gráficas semanales para 3 marcas (Klean Building Services, Krissia's Cleaning Services y Krissia García).</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-teal-400 shrink-0 mt-0.5"></i>
+                    <span data-i18n="exp.job5.r2">Producción de videos e imágenes orientados a servicios corporativos, limpieza residencial profunda y cursos/coaching de emprendimiento.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pt-4 border-t border-white/10">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="building-2" class="w-3.5 h-3.5 text-teal-400"></i>
+                    <span data-i18n="exp.job5.tag1">3 Marcas</span>
+                  </span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-teal-400"></i>
+                    <span data-i18n="exp.job5.tag2">Contenido Semanal</span>
+                  </span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-teal-400"></i>
+                    <span data-i18n="exp.job5.tag3">Coaching & Cursos</span>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- ============================================================ -->
+          <!-- FIN KRISSIA'S CLEANING SERVICES (FREELANCE)                  -->
+          <!-- ============================================================ -->
 
         </div>
 
@@ -749,12 +994,12 @@
         <div class="flex flex-col items-start space-y-3">
           <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-amber uppercase tracking-widest font-semibold">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-amber"></span>
-            <span>// 03. Capacidades Técnicas</span>
+            <span data-i18n="skills.tag">// 03. Capacidades Técnicas</span>
           </div>
-          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white" data-i18n="skills.title">
             Competencias y <span class="text-gradient-orange">Arsenal Creativo</span>
           </h2>
-          <p class="text-sm sm:text-base text-slate-400 max-w-2xl">
+          <p class="text-sm sm:text-base text-slate-400 max-w-2xl" data-i18n="skills.desc">
             Dominio de software de estándar de la industria y habilidades especializadas en postproducción, diseño y narrativa audiovisual.
           </p>
         </div>
@@ -765,9 +1010,9 @@
             <div class="flex items-center justify-between border-b border-white/10 pb-4">
               <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
                 <i data-lucide="sliders" class="w-5 h-5 text-brand-orange"></i>
-                <span>Nivel de Dominio Técnico</span>
+                <span data-i18n="skills.matrixTitle">Nivel de Dominio Técnico</span>
               </h3>
-              <span class="text-xs font-mono text-slate-400">Puntaje %</span>
+              <span class="text-xs font-mono text-slate-400" data-i18n="skills.scoreLabel">Puntaje %</span>
             </div>
 
             <div class="space-y-6 pt-2">
@@ -776,70 +1021,70 @@
                 <div class="flex justify-between items-center text-sm font-semibold">
                   <span class="text-white flex items-center gap-2">
                     <i data-lucide="film" class="w-4 h-4 text-brand-orange"></i>
-                    Edición de Video
+                    <span data-i18n="skills.s1.name">Edición de Video</span>
                   </span>
                   <span class="font-mono text-brand-orange font-bold">95%</span>
                 </div>
                 <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                   <div class="h-full bg-gradient-to-r from-brand-amber to-brand-orange rounded-full transition-all duration-1000" style="width: 95%"></div>
                 </div>
-                <p class="text-xs text-slate-400">Corte rítmico, narrativa publicitaria, ritmo cinemático y formatos multiplataforma.</p>
+                <p class="text-xs text-slate-400" data-i18n="skills.s1.desc">Corte rítmico, narrativa publicitaria, ritmo cinemático y formatos multiplataforma.</p>
               </div>
 
               <div class="space-y-2">
                 <div class="flex justify-between items-center text-sm font-semibold">
                   <span class="text-white flex items-center gap-2">
                     <i data-lucide="book-open" class="w-4 h-4 text-brand-amber"></i>
-                    Storytelling
+                    <span data-i18n="skills.s2.name">Storytelling</span>
                   </span>
                   <span class="font-mono text-brand-amber font-bold">90%</span>
                 </div>
                 <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                   <div class="h-full bg-gradient-to-r from-brand-orange to-brand-amber rounded-full transition-all duration-1000" style="width: 90%"></div>
                 </div>
-                <p class="text-xs text-slate-400">Estructura dramática, captación de atención y conexión emocional con el espectador.</p>
+                <p class="text-xs text-slate-400" data-i18n="skills.s2.desc">Estructura dramática, captación de atención y conexión emocional con el espectador.</p>
               </div>
 
               <div class="space-y-2">
                 <div class="flex justify-between items-center text-sm font-semibold">
                   <span class="text-white flex items-center gap-2">
                     <i data-lucide="sun-medium" class="w-4 h-4 text-sky-400"></i>
-                    Color Grading
+                    <span data-i18n="skills.s3.name">Color Grading</span>
                   </span>
                   <span class="font-mono text-sky-400 font-bold">85%</span>
                 </div>
                 <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                   <div class="h-full bg-gradient-to-r from-brand-amber via-brand-purple to-sky-500 rounded-full transition-all duration-1000" style="width: 85%"></div>
                 </div>
-                <p class="text-xs text-slate-400">Corrección de color, calibración de tono de piel y creación de atmósferas estilizadas.</p>
+                <p class="text-xs text-slate-400" data-i18n="skills.s3.desc">Corrección de color, calibración de tono de piel y creación de atmósferas estilizadas.</p>
               </div>
 
               <div class="space-y-2">
                 <div class="flex justify-between items-center text-sm font-semibold">
                   <span class="text-white flex items-center gap-2">
                     <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
-                    Motion Graphics
+                    <span data-i18n="skills.s4.name">Motion Graphics</span>
                   </span>
                   <span class="font-mono text-cyan-400 font-bold">80%</span>
                 </div>
                 <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                   <div class="h-full bg-gradient-to-r from-sky-500 to-cyan-400 rounded-full transition-all duration-1000" style="width: 80%"></div>
                 </div>
-                <p class="text-xs text-slate-400">Animación de tipografías cinéticas, títulos, transiciones y elementos de identidad en movimiento.</p>
+                <p class="text-xs text-slate-400" data-i18n="skills.s4.desc">Animación de tipografías cinéticas, títulos, transiciones y elementos de identidad en movimiento.</p>
               </div>
 
               <div class="space-y-2">
                 <div class="flex justify-between items-center text-sm font-semibold">
                   <span class="text-white flex items-center gap-2">
                     <i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i>
-                    Sound Design
+                    <span data-i18n="skills.s5.name">Sound Design</span>
                   </span>
                   <span class="font-mono text-emerald-400 font-bold">75%</span>
                 </div>
                 <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                   <div class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full transition-all duration-1000" style="width: 75%"></div>
                 </div>
-                <p class="text-xs text-slate-400">Efectos sonoros (SFX), mezcla estéreo, foley y ecualización de audio para máxima inmersión.</p>
+                <p class="text-xs text-slate-400" data-i18n="skills.s5.desc">Efectos sonoros (SFX), mezcla estéreo, foley y ecualización de audio para máxima inmersión.</p>
               </div>
 
             </div>
@@ -851,9 +1096,9 @@
               <div class="border-b border-white/10 pb-4">
                 <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
                   <i data-lucide="cpu" class="w-5 h-5 text-brand-purple"></i>
-                  <span>Software & Herramientas</span>
+                  <span data-i18n="skills.softTitle">Software & Herramientas</span>
                 </h3>
-                <p class="text-xs text-slate-400 mt-1">Ecosistema técnico utilizado para proyectos comerciales.</p>
+                <p class="text-xs text-slate-400 mt-1" data-i18n="skills.softDesc">Ecosistema técnico utilizado para proyectos comerciales.</p>
               </div>
 
               <!-- SECCIÓN DE SOFTWARE CON ICONOS OFICIALES CORREGIDOS -->
@@ -866,7 +1111,7 @@
                   </div>
                   <div>
                     <p class="text-sm font-bold text-white leading-tight">Adobe Premiere</p>
-                    <p class="text-[11px] text-slate-400">Edición & Montaje</p>
+                    <p class="text-[11px] text-slate-400" data-i18n="skills.sw1.desc">Edición & Montaje</p>
                   </div>
                 </div>
 
@@ -877,7 +1122,7 @@
                   </div>
                   <div>
                     <p class="text-sm font-bold text-white leading-tight">After Effects</p>
-                    <p class="text-[11px] text-slate-400">Motion & VFX</p>
+                    <p class="text-[11px] text-slate-400" data-i18n="skills.sw2.desc">Motion & VFX</p>
                   </div>
                 </div>
 
@@ -888,7 +1133,7 @@
                   </div>
                   <div>
                     <p class="text-sm font-bold text-white leading-tight">Photoshop</p>
-                    <p class="text-[11px] text-slate-400">Retoque & Gráficos</p>
+                    <p class="text-[11px] text-slate-400" data-i18n="skills.sw3.desc">Retoque & Gráficos</p>
                   </div>
                 </div>
 
@@ -899,7 +1144,7 @@
                   </div>
                   <div>
                     <p class="text-sm font-bold text-white leading-tight">Figma</p>
-                    <p class="text-[11px] text-slate-400">UI/UX & Prototipado</p>
+                    <p class="text-[11px] text-slate-400" data-i18n="skills.sw4.desc">UI/UX & Prototipado</p>
                   </div>
                 </div>
 
@@ -910,7 +1155,7 @@
                   </div>
                   <div>
                     <p class="text-sm font-bold text-white leading-tight">Blender</p>
-                    <p class="text-[11px] text-slate-400">3D & Animación</p>
+                    <p class="text-[11px] text-slate-400" data-i18n="skills.sw5.desc">3D & Animación</p>
                   </div>
                 </div>
 
@@ -921,7 +1166,7 @@
                   </div>
                   <div>
                     <p class="text-sm font-bold text-white leading-tight">Google Ads</p>
-                    <p class="text-[11px] text-slate-400">Pauta & Conversión</p>
+                    <p class="text-[11px] text-slate-400" data-i18n="skills.sw6.desc">Pauta & Conversión</p>
                   </div>
                 </div>
 
@@ -933,8 +1178,8 @@
                 <i data-lucide="award" class="w-6 h-6"></i>
               </div>
               <div class="text-xs text-slate-300">
-                <p class="font-bold text-white text-sm">Formación Universitaria UTEZ</p>
-                <p class="text-slate-400">Lic. en Diseño Digital con especialidad en Animación y Producción Audiovisual (2021-2025).</p>
+                <p class="font-bold text-white text-sm" data-i18n="skills.utezTitle">Formación Universitaria UTEZ</p>
+                <p class="text-slate-400" data-i18n="skills.utezDesc">Lic. en Diseño Digital con especialidad en Animación y Producción Audiovisual (2021-2025).</p>
               </div>
             </div>
 
@@ -954,12 +1199,12 @@
         <div class="flex flex-col items-start space-y-3">
           <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-orange uppercase tracking-widest font-semibold">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-orange"></span>
-            <span>// 04. Casos de Estudio</span>
+            <span data-i18n="projects.tag">// 04. Casos de Estudio</span>
           </div>
-          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white" data-i18n="projects.title">
             Proyectos <span class="text-gradient-orange">Destacados</span>
           </h2>
-          <p class="text-sm sm:text-base text-slate-400 max-w-2xl">
+          <p class="text-sm sm:text-base text-slate-400 max-w-2xl" data-i18n="projects.desc">
             Soluciones visuales que articulan identidad corporativa, sistemas tipográficos y campañas de impacto a gran escala.
           </p>
         </div>
@@ -972,7 +1217,7 @@
               <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-orange/30 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
               
               <div class="relative z-10 flex items-center justify-between">
-                <span class="px-3 py-1 rounded-full bg-brand-orange/20 border border-brand-orange/40 text-brand-orange text-xs font-mono font-bold tracking-wider uppercase">
+                <span class="px-3 py-1 rounded-full bg-brand-orange/20 border border-brand-orange/40 text-brand-orange text-xs font-mono font-bold tracking-wider uppercase" data-i18n="proj1.badge">
                   Branding & High Speed
                 </span>
                 <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5 bg-black/50 px-2.5 py-1 rounded-lg">
@@ -981,7 +1226,7 @@
               </div>
 
               <div class="relative z-10">
-                <p class="text-xs font-mono text-brand-amber uppercase tracking-widest">Identidad Visual & Deporte Motor</p>
+                <p class="text-xs font-mono text-brand-amber uppercase tracking-widest" data-i18n="proj1.subtitle">Identidad Visual & Deporte Motor</p>
                 <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">
                   CONTENDER E-KARTING
                 </h3>
@@ -991,7 +1236,7 @@
             <div class="p-6 sm:p-8 space-y-6 flex-1 flex flex-col justify-between">
               
               <div class="space-y-5">
-                <p class="text-sm text-slate-300 leading-relaxed">
+                <p class="text-sm text-slate-300 leading-relaxed" data-i18n="proj1.desc">
                   Complejo de go-karts de alto rendimiento. Desarrollo integral de branding e identidad visual enfocada en velocidad, dinamismo y espíritu competitivo para posicionar la experiencia como referente de adrenalina deportiva.
                 </p>
 
@@ -999,38 +1244,38 @@
                   <div class="flex items-center justify-between text-xs font-mono text-slate-400">
                     <span class="uppercase tracking-wider font-semibold flex items-center gap-1.5 text-white">
                       <i data-lucide="palette" class="w-3.5 h-3.5 text-brand-orange"></i>
-                      Paleta de Colores Oficial (Clic para copiar HEX):
+                      <span data-i18n="proj1.paletteLabel">Paleta de Colores Oficial (Clic para copiar HEX):</span>
                     </span>
                   </div>
 
                   <!-- PALETA DE COLORES CORREGIDA SEGÚN IMAGEN -->
                   <div class="grid grid-cols-5 gap-2">
                     
-                    <button onclick="copyToClipboard('#ff4415', 'Color #ff4415 copiado')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" title="Copiar #ff4415">
+                    <button onclick="copyToClipboard('#ff4415', 'toast.colorCopied')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" data-i18n-title="common.copyColor" title="Copiar color">
                       <div class="w-8 h-8 rounded-lg shadow-md mb-1.5 transition-transform group-hover/color:scale-110" style="background-color: #ff4415;"></div>
                       <span class="text-[10px] font-mono font-bold text-slate-200 uppercase">#ff4415</span>
-                      <span class="text-[9px] text-slate-400">Naranja</span>
+                      <span class="text-[9px] text-slate-400" data-i18n="color.orange">Naranja</span>
                     </button>
 
-                    <button onclick="copyToClipboard('#ffaa33', 'Color #ffaa33 copiado')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" title="Copiar #ffaa33">
+                    <button onclick="copyToClipboard('#ffaa33', 'toast.colorCopied')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" data-i18n-title="common.copyColor" title="Copiar color">
                       <div class="w-8 h-8 rounded-lg shadow-md mb-1.5 transition-transform group-hover/color:scale-110" style="background-color: #ffaa33;"></div>
                       <span class="text-[10px] font-mono font-bold text-slate-200 uppercase">#ffaa33</span>
-                      <span class="text-[9px] text-slate-400">Amarillo</span>
+                      <span class="text-[9px] text-slate-400" data-i18n="color.yellow">Amarillo</span>
                     </button>
 
-                    <button onclick="copyToClipboard('#ffffff', 'Color #ffffff copiado')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" title="Copiar #ffffff">
+                    <button onclick="copyToClipboard('#ffffff', 'toast.colorCopied')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" data-i18n-title="common.copyColor" title="Copiar color">
                       <div class="w-8 h-8 rounded-lg shadow-md mb-1.5 transition-transform group-hover/color:scale-110 border border-slate-300" style="background-color: #ffffff;"></div>
                       <span class="text-[10px] font-mono font-bold text-slate-200 uppercase">#ffffff</span>
-                      <span class="text-[9px] text-slate-400">Blanco</span>
+                      <span class="text-[9px] text-slate-400" data-i18n="color.white">Blanco</span>
                     </button>
 
-                    <button onclick="copyToClipboard('#000000', 'Color #000000 copiado')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" title="Copiar #000000">
+                    <button onclick="copyToClipboard('#000000', 'toast.colorCopied')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" data-i18n-title="common.copyColor" title="Copiar color">
                       <div class="w-8 h-8 rounded-lg shadow-md mb-1.5 transition-transform group-hover/color:scale-110 border border-white/20" style="background-color: #000000;"></div>
                       <span class="text-[10px] font-mono font-bold text-slate-200 uppercase">#000000</span>
-                      <span class="text-[9px] text-slate-400">Negro</span>
+                      <span class="text-[9px] text-slate-400" data-i18n="color.black">Negro</span>
                     </button>
 
-                    <button onclick="copyToClipboard('#ffaa33, #ff4415', 'Colores #ffaa33 y #ff4415 copiados')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" title="Copiar combinación">
+                    <button onclick="copyToClipboard('#ffaa33, #ff4415', 'toast.colorsCopied')" class="group/color flex flex-col items-center p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-center" data-i18n-title="common.copyColor" title="Copiar combinación">
                       <div class="w-8 h-8 rounded-lg shadow-md mb-1.5 transition-transform group-hover/color:scale-110 flex overflow-hidden">
                         <div class="w-1/2 h-full" style="background-color: #ffaa33;"></div>
                         <div class="w-1/2 h-full" style="background-color: #ff4415;"></div>
@@ -1045,17 +1290,17 @@
                 <div class="space-y-2 pt-2">
                   <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-1.5 text-white">
                     <i data-lucide="type" class="w-3.5 h-3.5 text-brand-amber"></i>
-                    Tipografías de Identidad:
+                    <span data-i18n="proj1.typoLabel">Tipografías de Identidad:</span>
                   </p>
                   <div class="flex flex-wrap gap-2">
                     <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold text-slate-200">
-                      Cattaneo <span class="text-slate-500 font-normal">(Display Principal)</span>
+                      Cattaneo <span class="text-slate-500 font-normal" data-i18n="proj1.typo1">(Display Principal)</span>
                     </span>
                     <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold text-slate-200">
-                      Dynamic <span class="text-slate-500 font-normal">(Acentos & Titulares)</span>
+                      Dynamic <span class="text-slate-500 font-normal" data-i18n="proj1.typo2">(Acentos & Titulares)</span>
                     </span>
                     <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold text-slate-200">
-                      Itamb <span class="text-slate-500 font-normal">(Cuerpo Técnico)</span>
+                      Itamb <span class="text-slate-500 font-normal" data-i18n="proj1.typo3">(Cuerpo Técnico)</span>
                     </span>
                   </div>
                 </div>
@@ -1063,9 +1308,9 @@
               </div>
 
               <div class="pt-5 border-t border-white/10 flex items-center justify-between">
-                <span class="text-xs font-mono text-slate-400">Manual de Marca & Estilo</span>
+                <span class="text-xs font-mono text-slate-400" data-i18n="proj1.footer">Manual de Marca & Estilo</span>
                 <button onclick="openModal('contenderModal')" class="inline-flex items-center gap-2 text-xs font-bold text-brand-orange hover:text-white transition-colors group/btn">
-                  <span>Inspeccionar Caso Completo</span>
+                  <span data-i18n="common.inspectCase">Inspeccionar Caso Completo</span>
                   <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover/btn:translate-x-1"></i>
                 </button>
               </div>
@@ -1080,16 +1325,16 @@
               <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-purple/30 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
               
               <div class="relative z-10 flex items-center justify-between">
-                <span class="px-3 py-1 rounded-full bg-sky-500/20 border border-sky-500/40 text-sky-300 text-xs font-mono font-bold tracking-wider uppercase">
+                <span class="px-3 py-1 rounded-full bg-sky-500/20 border border-sky-500/40 text-sky-300 text-xs font-mono font-bold tracking-wider uppercase" data-i18n="proj2.badge">
                   EdTech & Growth Ecosistema
                 </span>
                 <span class="text-xs font-mono text-emerald-400 flex items-center gap-1.5 bg-black/50 px-2.5 py-1 rounded-lg">
-                  <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Alto Impacto
+                  <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> <span data-i18n="proj2.highImpact">Alto Impacto</span>
                 </span>
               </div>
 
               <div class="relative z-10">
-                <p class="text-xs font-mono text-sky-300 uppercase tracking-widest">Ecosistema Publicitario & UI/UX</p>
+                <p class="text-xs font-mono text-sky-300 uppercase tracking-widest" data-i18n="proj2.subtitle">Ecosistema Publicitario & UI/UX</p>
                 <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">
                   RED EDUCATIVA MÉXICO
                 </h3>
@@ -1099,14 +1344,14 @@
             <div class="p-6 sm:p-8 space-y-6 flex-1 flex flex-col justify-between">
               
               <div class="space-y-5">
-                <p class="text-sm text-slate-300 leading-relaxed">
+                <p class="text-sm text-slate-300 leading-relaxed" data-i18n="proj2.desc">
                   Ecosistema visual y publicitario integral para potenciar el alcance de la institución enfocada en formación para adultos. Se implementó una estrategia coordinada entre material publicitario para Google/Facebook Ads y diseño web UI/UX.
                 </p>
 
                 <div class="space-y-2.5 pt-2">
                   <p class="text-xs font-mono text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-1.5 text-white">
                     <i data-lucide="compass" class="w-3.5 h-3.5 text-sky-400"></i>
-                    Pilares Conceptuales de Marca:
+                    <span data-i18n="proj2.pillarsLabel">Pilares Conceptuales de Marca:</span>
                   </p>
 
                   <div class="grid grid-cols-2 gap-2.5">
@@ -1114,49 +1359,49 @@
                     <div class="p-3 rounded-xl bg-white/5 border border-white/5 space-y-1">
                       <div class="flex items-center gap-2 text-sky-400 text-xs font-bold">
                         <i data-lucide="heart" class="w-3.5 h-3.5"></i>
-                        <span>Inclusión</span>
+                        <span data-i18n="proj2.p1t">Inclusión</span>
                       </div>
-                      <p class="text-[11px] text-slate-400 leading-snug">Educación accesible y empática para el desarrollo de adultos.</p>
+                      <p class="text-[11px] text-slate-400 leading-snug" data-i18n="proj2.p1d">Educación accesible y empática para el desarrollo de adultos.</p>
                     </div>
 
                     <div class="p-3 rounded-xl bg-white/5 border border-white/5 space-y-1">
                       <div class="flex items-center gap-2 text-cyan-400 text-xs font-bold">
                         <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i>
-                        <span>Innovación Educativa</span>
+                        <span data-i18n="proj2.p2t">Innovación Educativa</span>
                       </div>
-                      <p class="text-[11px] text-slate-400 leading-snug">Metodologías de vanguardia y plataformas web interactivas.</p>
+                      <p class="text-[11px] text-slate-400 leading-snug" data-i18n="proj2.p2d">Metodologías de vanguardia y plataformas web interactivas.</p>
                     </div>
 
                     <div class="p-3 rounded-xl bg-white/5 border border-white/5 space-y-1">
                       <div class="flex items-center gap-2 text-brand-amber text-xs font-bold">
                         <i data-lucide="smile" class="w-3.5 h-3.5"></i>
-                        <span>Cercanía</span>
+                        <span data-i18n="proj2.p3t">Cercanía</span>
                       </div>
-                      <p class="text-[11px] text-slate-400 leading-snug">Comunicación cálida, humana y personalizada con cada estudiante.</p>
+                      <p class="text-[11px] text-slate-400 leading-snug" data-i18n="proj2.p3d">Comunicación cálida, humana y personalizada con cada estudiante.</p>
                     </div>
 
                     <div class="p-3 rounded-xl bg-white/5 border border-white/5 space-y-1">
                       <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold">
                         <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-                        <span>Liderazgo</span>
+                        <span data-i18n="proj2.p4t">Liderazgo</span>
                       </div>
-                      <p class="text-[11px] text-slate-400 leading-snug">Impulso profesional hacia metas y mejores oportunidades.</p>
+                      <p class="text-[11px] text-slate-400 leading-snug" data-i18n="proj2.p4d">Impulso profesional hacia metas y mejores oportunidades.</p>
                     </div>
 
                   </div>
                 </div>
 
                 <div class="glass-card p-3 rounded-xl border-emerald-500/20 flex items-center justify-between text-xs">
-                  <span class="text-slate-300 font-medium">Impacto Total de Campañas:</span>
+                  <span class="text-slate-300 font-medium" data-i18n="proj2.impactLabel">Impacto Total de Campañas:</span>
                   <span class="font-mono font-bold text-emerald-400">+862 Leads • +112% Tráfico</span>
                 </div>
 
               </div>
 
               <div class="pt-5 border-t border-white/10 flex items-center justify-between">
-                <span class="text-xs font-mono text-slate-400">Estrategia Multicanal & UI/UX</span>
+                <span class="text-xs font-mono text-slate-400" data-i18n="proj2.footer">Estrategia Multicanal & UI/UX</span>
                 <button onclick="openModal('redEducativaModal')" class="inline-flex items-center gap-2 text-xs font-bold text-sky-400 hover:text-white transition-colors group/btn">
-                  <span>Inspeccionar Caso Completo</span>
+                  <span data-i18n="common.inspectCase">Inspeccionar Caso Completo</span>
                   <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover/btn:translate-x-1"></i>
                 </button>
               </div>
@@ -1165,6 +1410,233 @@
 
           </div>
 
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECCIÓN DE EDICIÓN DE VIDEO (SHOWCASE 3 TIKTOKS)                          -->
+    <!-- ========================================================================= -->
+    <section id="videos" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/5">
+      <div class="space-y-12">
+        
+        <div class="flex flex-col items-start space-y-3">
+          <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-orange uppercase tracking-widest font-semibold">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-orange"></span>
+            <span data-i18n="videos.tag">// 05. Showcase Audiovisual</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white" data-i18n="videos.title">
+            Edición de Video & <span class="text-gradient-orange">Contenido Vertical</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-400 max-w-2xl" data-i18n="videos.desc">
+            Piezas audiovisuales para redes sociales con formato vertical 9:16, optimizadas para máxima retención y engagement en TikTok, Reels e Instagram.
+          </p>
+        </div>
+
+        <!-- Grid de 3 VIDEOS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+          <!-- VIDEO 1: TIKTOK 1 -->
+          <div class="glass-card-interactive rounded-2xl overflow-hidden border border-white/10 flex flex-col group">
+            
+            <!-- Header de la tarjeta -->
+            <div class="px-4 py-3 bg-black/40 border-b border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <div class="flex items-center gap-2 text-brand-orange font-bold">
+                <span class="h-1.5 w-1.5 rounded-full bg-brand-orange animate-pulse"></span>
+                <span>EDIT 01</span>
+              </div>
+              <span class="text-slate-400">9:16 • MP4</span>
+            </div>
+
+            <!-- Reproductor vertical estilo smartphone -->
+            <div class="p-4 pb-0">
+              <div class="video-frame aspect-[9/16] bg-black">
+                <div class="phone-notch"></div>
+                <video
+                  id="tiktok1"
+                  class="w-full h-full"
+                  preload="metadata"
+                  playsinline
+                  controls
+                  controlslist="nodownload"
+                  poster=""
+                >
+                  <source src="tiktok1.mp4" type="video/mp4">
+                  <span data-i18n="videos.noSupport">Tu navegador no soporta video HTML5.</span>
+                </video>
+                <div class="video-play-overlay" data-video-target="tiktok1">
+                  <button type="button" class="video-play-btn" aria-label="Reproducir video">
+                    <i data-lucide="play" class="w-7 h-7 fill-brand-black translate-x-0.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Info de la tarjeta -->
+            <div class="p-5 space-y-3 flex-1 flex flex-col">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-orange/15 text-brand-orange border border-brand-orange/30 text-[10px] font-mono font-bold tracking-wider uppercase" data-i18n="videos.v1.badge">
+                  TikTok
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 text-[10px] font-mono tracking-wider uppercase" data-i18n="videos.v1.cat">
+                  Vertical
+                </span>
+              </div>
+              <h3 class="font-display text-lg font-bold text-white leading-tight" data-i18n="videos.v1.title">
+                Reel Publicitario 01
+              </h3>
+              <p class="text-xs text-slate-400 leading-relaxed flex-1" data-i18n="videos.v1.desc">
+                Montaje rítmico con cortes rápidos, transiciones dinámicas y diseño sonoro orientado a retención en los primeros 3 segundos.
+              </p>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="scissors" class="w-3.5 h-3.5 text-brand-orange"></i>
+                  <span data-i18n="videos.edited">Editado</span>
+                </span>
+                <span>Premiere Pro</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- VIDEO 2: TIKTOK 2 -->
+          <div class="glass-card-interactive rounded-2xl overflow-hidden border border-white/10 flex flex-col group">
+            
+            <div class="px-4 py-3 bg-black/40 border-b border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <div class="flex items-center gap-2 text-brand-amber font-bold">
+                <span class="h-1.5 w-1.5 rounded-full bg-brand-amber animate-pulse"></span>
+                <span>EDIT 02</span>
+              </div>
+              <span class="text-slate-400">9:16 • MP4</span>
+            </div>
+
+            <div class="p-4 pb-0">
+              <div class="video-frame aspect-[9/16] bg-black">
+                <div class="phone-notch"></div>
+                <video
+                  id="tiktok2"
+                  class="w-full h-full"
+                  preload="metadata"
+                  playsinline
+                  controls
+                  controlslist="nodownload"
+                  poster=""
+                >
+                  <source src="tiktok2.mp4" type="video/mp4">
+                  <span data-i18n="videos.noSupport">Tu navegador no soporta video HTML5.</span>
+                </video>
+                <div class="video-play-overlay" data-video-target="tiktok2">
+                  <button type="button" class="video-play-btn" aria-label="Reproducir video">
+                    <i data-lucide="play" class="w-7 h-7 fill-brand-black translate-x-0.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 space-y-3 flex-1 flex flex-col">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-amber/15 text-brand-amber border border-brand-amber/30 text-[10px] font-mono font-bold tracking-wider uppercase" data-i18n="videos.v2.badge">
+                  TikTok
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 text-[10px] font-mono tracking-wider uppercase" data-i18n="videos.v2.cat">
+                  Vertical
+                </span>
+              </div>
+              <h3 class="font-display text-lg font-bold text-white leading-tight" data-i18n="videos.v2.title">
+                Reel Publicitario 02
+              </h3>
+              <p class="text-xs text-slate-400 leading-relaxed flex-1" data-i18n="videos.v2.desc">
+                Storytelling breve con enfoque en gancho emocional, color grading estilizado y call to action claro al cierre.
+              </p>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="scissors" class="w-3.5 h-3.5 text-brand-amber"></i>
+                  <span data-i18n="videos.edited">Editado</span>
+                </span>
+                <span>Premiere Pro</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- VIDEO 3: TIKTOK 3 -->
+          <div class="glass-card-interactive rounded-2xl overflow-hidden border border-white/10 flex flex-col group sm:col-span-2 lg:col-span-1">
+            
+            <div class="px-4 py-3 bg-black/40 border-b border-white/10 flex items-center justify-between text-[11px] font-mono">
+              <div class="flex items-center gap-2 text-teal-300 font-bold">
+                <span class="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse"></span>
+                <span>EDIT 03</span>
+              </div>
+              <span class="text-slate-400">9:16 • MP4</span>
+            </div>
+
+            <div class="p-4 pb-0">
+              <div class="video-frame aspect-[9/16] bg-black">
+                <div class="phone-notch"></div>
+                <video
+                  id="tiktok3"
+                  class="w-full h-full"
+                  preload="metadata"
+                  playsinline
+                  controls
+                  controlslist="nodownload"
+                  poster=""
+                >
+                  <source src="tiktok3.mp4" type="video/mp4">
+                  <span data-i18n="videos.noSupport">Tu navegador no soporta video HTML5.</span>
+                </video>
+                <div class="video-play-overlay" data-video-target="tiktok3">
+                  <button type="button" class="video-play-btn" aria-label="Reproducir video">
+                    <i data-lucide="play" class="w-7 h-7 fill-brand-black translate-x-0.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-5 space-y-3 flex-1 flex flex-col">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full bg-teal-400/15 text-teal-300 border border-teal-400/30 text-[10px] font-mono font-bold tracking-wider uppercase" data-i18n="videos.v3.badge">
+                  TikTok
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-slate-300 border border-white/10 text-[10px] font-mono tracking-wider uppercase" data-i18n="videos.v3.cat">
+                  Vertical
+                </span>
+              </div>
+              <h3 class="font-display text-lg font-bold text-white leading-tight" data-i18n="videos.v3.title">
+                Reel Publicitario 03
+              </h3>
+              <p class="text-xs text-slate-400 leading-relaxed flex-1" data-i18n="videos.v3.desc">
+                Composición audiovisual con motion graphics, tipografía cinética y diseño sonoro inmersivo para máximo engagement.
+              </p>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="scissors" class="w-3.5 h-3.5 text-teal-400"></i>
+                  <span data-i18n="videos.edited">Editado</span>
+                </span>
+                <span>Premiere Pro</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Nota inferior con CTA -->
+        <div class="glass-card rounded-2xl p-5 sm:p-6 border-l-4 border-brand-orange flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center text-brand-orange shrink-0">
+              <i data-lucide="clapperboard" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs sm:text-sm text-slate-300">
+              <p class="font-bold text-white" data-i18n="videos.ctaTitle">¿Necesitas contenido vertical para tu marca?</p>
+              <p class="text-slate-400" data-i18n="videos.ctaDesc">Produzco ediciones optimizadas para TikTok, Reels y Shorts con estrategia de retención.</p>
+            </div>
+          </div>
+          <a href="#contacto" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-brand-orange to-brand-amber text-brand-black font-bold text-xs tracking-wide shadow-lg shadow-brand-orange/25 hover:shadow-brand-orange/50 hover:scale-[1.02] transition-all whitespace-nowrap">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span data-i18n="videos.ctaBtn">Cotizar Edición</span>
+          </a>
         </div>
 
       </div>
@@ -1185,15 +1657,15 @@
             
             <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-orange uppercase tracking-widest font-semibold">
               <span class="h-1.5 w-1.5 rounded-full bg-brand-orange"></span>
-              <span>// 05. Conexión Directa</span>
+              <span data-i18n="contact.tag">// 06. Conexión Directa</span>
             </div>
 
-            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight" data-i18n="contact.title">
               ¿Listo para crear algo <br>
               <span class="text-gradient-orange">extraordinario juntos?</span>
             </h2>
 
-            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl" data-i18n="contact.desc">
               Ya sea para la conceptualización de tu próxima campaña publicitaria, producción audiovisual cinematográfica, animación 2D/3D o identidad de marca completa: hablemos y hagamos que suceda.
             </p>
 
@@ -1209,7 +1681,7 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Teléfono & WhatsApp</p>
+                    <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider" data-i18n="contact.phoneLabel">Teléfono & WhatsApp</p>
                     <a href="tel:+527775663698" class="font-display font-bold text-base text-white hover:text-[#25D366] transition-colors">
                       +52 777 566 3698
                     </a>
@@ -1217,9 +1689,9 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                  <button onclick="copyToClipboard('+52 777 566 3698', 'Teléfono copiado')" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="Copiar teléfono">
+                  <button onclick="copyToClipboard('+52 777 566 3698', 'toast.phoneCopied')" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" data-i18n-title="common.copyPhone" title="Copiar teléfono">
                     <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                    <span>Copiar</span>
+                    <span data-i18n="common.copy">Copiar</span>
                   </button>
                   <a href="https://wa.me/527775663698?text=Hola%20José%20Emiliano,%20vi%20tu%20portafolio%20profesional%20y%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20proyecto." target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#1DA851] text-xs font-bold text-white transition-all flex items-center gap-1.5 shadow-lg shadow-[#25D366]/20">
                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5">
@@ -1240,7 +1712,7 @@
                     </svg>
                   </div>
                   <div class="min-w-0">
-                    <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Correo Electrónico</p>
+                    <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider" data-i18n="contact.emailLabel">Correo Electrónico</p>
                     <a href="mailto:20203dd107@utez.edu.mx" class="font-display font-bold text-sm sm:text-base text-white hover:text-sky-400 transition-colors truncate block">
                       20203dd107@utez.edu.mx
                     </a>
@@ -1248,16 +1720,16 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                  <button onclick="copyToClipboard('20203dd107@utez.edu.mx', 'Correo copiado al portapapeles')" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="Copiar correo">
+                  <button onclick="copyToClipboard('20203dd107@utez.edu.mx', 'toast.emailCopied')" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" data-i18n-title="common.copyEmail" title="Copiar correo">
                     <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                    <span>Copiar</span>
+                    <span data-i18n="common.copy">Copiar</span>
                   </button>
                   <a href="mailto:20203dd107@utez.edu.mx" class="px-3 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-xs font-bold text-white transition-all flex items-center gap-1.5 shadow-lg shadow-sky-500/20">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5">
                       <rect width="20" height="16" x="2" y="4" rx="2"/>
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                     </svg>
-                    <span>Escribir</span>
+                    <span data-i18n="common.write">Escribir</span>
                   </a>
                 </div>
               </div>
@@ -1271,7 +1743,7 @@
                     </svg>
                   </div>
                   <div>
-                    <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Instagram Personal & Creativo</p>
+                    <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider" data-i18n="contact.igLabel">Instagram Personal & Creativo</p>
                     <p class="font-display font-bold text-base text-white">
                       @emi.icy
                     </p>
@@ -1279,7 +1751,7 @@
                 </div>
 
                 <a href="https://instagram.com/emi.icy" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#E4405F] to-[#F77737] text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-[#E4405F]/20 hover:scale-[1.02]">
-                  <span>Seguir en Instagram</span>
+                  <span data-i18n="contact.igBtn">Seguir en Instagram</span>
                   <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                 </a>
               </div>
@@ -1292,35 +1764,35 @@
             <div class="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 space-y-4">
               <h3 class="font-display text-lg font-bold text-white flex items-center gap-2">
                 <i data-lucide="message-square" class="w-4 h-4 text-brand-orange"></i>
-                <span>Mensaje Rápido</span>
+                <span data-i18n="contact.formTitle">Mensaje Rápido</span>
               </h3>
-              <p class="text-xs text-slate-400">Envía un mensaje directo pre-configurado para respuesta inmediata.</p>
+              <p class="text-xs text-slate-400" data-i18n="contact.formDesc">Envía un mensaje directo pre-configurado para respuesta inmediata.</p>
 
               <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-3 pt-2">
                 <div>
-                  <label class="block text-xs font-mono text-slate-400 mb-1">Tu Nombre o Empresa</label>
-                  <input type="text" id="senderName" required placeholder="Ej. Roberto Martínez / Marca X" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-black/60 border border-white/10 text-white text-sm focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange transition-all">
+                  <label class="block text-xs font-mono text-slate-400 mb-1" data-i18n="contact.formName">Tu Nombre o Empresa</label>
+                  <input type="text" id="senderName" required data-i18n-placeholder="contact.formNamePh" placeholder="Ej. Roberto Martínez / Marca X" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-black/60 border border-white/10 text-white text-sm focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange transition-all">
                 </div>
 
                 <div>
-                  <label class="block text-xs font-mono text-slate-400 mb-1">Tipo de Proyecto</label>
+                  <label class="block text-xs font-mono text-slate-400 mb-1" data-i18n="contact.formType">Tipo de Proyecto</label>
                   <select id="projectType" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-black/60 border border-white/10 text-white text-sm focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange transition-all">
-                    <option value="Producción Audiovisual / Video">Producción Audiovisual / Video</option>
-                    <option value="Animación & Motion Graphics">Animación & Motion Graphics</option>
-                    <option value="Branding e Identidad Visual">Branding e Identidad Visual</option>
-                    <option value="Campañas Publicitarias Ads">Campañas Publicitarias Ads</option>
-                    <option value="Colaboración o Empleo">Colaboración Profesional</option>
+                    <option value="Producción Audiovisual / Video" data-i18n="contact.opt1">Producción Audiovisual / Video</option>
+                    <option value="Animación & Motion Graphics" data-i18n="contact.opt2">Animación & Motion Graphics</option>
+                    <option value="Branding e Identidad Visual" data-i18n="contact.opt3">Branding e Identidad Visual</option>
+                    <option value="Campañas Publicitarias Ads" data-i18n="contact.opt4">Campañas Publicitarias Ads</option>
+                    <option value="Colaboración o Empleo" data-i18n="contact.opt5">Colaboración Profesional</option>
                   </select>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-mono text-slate-400 mb-1">Mensaje o Breve Idea</label>
-                  <textarea id="senderMessage" rows="3" required placeholder="Hola Emiliano, queremos platicar sobre..." class="w-full px-3.5 py-2.5 rounded-xl bg-brand-black/60 border border-white/10 text-white text-sm focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange transition-all resize-none"></textarea>
+                  <label class="block text-xs font-mono text-slate-400 mb-1" data-i18n="contact.formMsg">Mensaje o Breve Idea</label>
+                  <textarea id="senderMessage" rows="3" required data-i18n-placeholder="contact.formMsgPh" placeholder="Hola Emiliano, queremos platicar sobre..." class="w-full px-3.5 py-2.5 rounded-xl bg-brand-black/60 border border-white/10 text-white text-sm focus:border-brand-orange focus:outline-none focus:ring-1 focus:ring-brand-orange transition-all resize-none"></textarea>
                 </div>
 
                 <button type="submit" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-orange to-brand-amber text-brand-black font-bold text-sm tracking-wide shadow-lg shadow-brand-orange/30 hover:shadow-brand-orange/50 hover:scale-[1.01] transition-all flex items-center justify-center gap-2">
                   <i data-lucide="send" class="w-4 h-4"></i>
-                  <span>Enviar por WhatsApp / Correo</span>
+                  <span data-i18n="contact.formSubmit">Enviar por WhatsApp / Correo</span>
                 </button>
               </form>
             </div>
@@ -1329,11 +1801,11 @@
         </div>
 
         <div class="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
-          <p>© 2026 José Emiliano Sánchez Esquivel. Todos los derechos reservados.</p>
+          <p data-i18n="contact.copyright">© 2026 José Emiliano Sánchez Esquivel. Todos los derechos reservados.</p>
           <p class="flex items-center gap-2 text-slate-500">
-            <span>Cuernavaca, Morelos, México</span>
+            <span data-i18n="contact.location">Cuernavaca, Morelos, México</span>
             <span>•</span>
-            <span>Lic. Diseño Digital UTEZ</span>
+            <span data-i18n="contact.degree">Lic. Diseño Digital UTEZ</span>
           </p>
         </div>
 
@@ -1351,7 +1823,7 @@
       <div class="px-6 py-4 bg-brand-black/70 border-b border-white/10 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-brand-orange"></span>
-          <h3 class="font-display font-bold text-white text-lg">CONTENDER E-KARTING — Caso de Estudio</h3>
+          <h3 class="font-display font-bold text-white text-lg" data-i18n="modal1.title">CONTENDER E-KARTING — Caso de Estudio</h3>
         </div>
         <button onclick="closeModal('contenderModal')" class="text-slate-400 hover:text-white p-1 rounded-lg">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -1360,14 +1832,14 @@
 
       <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-300">
         <div>
-          <h4 class="font-bold text-white text-base mb-2">Visión del Proyecto</h4>
-          <p class="leading-relaxed">
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="modal1.visionTitle">Visión del Proyecto</h4>
+          <p class="leading-relaxed" data-i18n="modal1.visionText">
             Complejo de go-karts de alto rendimiento. Se desarrolló una identidad visual integral inspirada en las líneas aerodinámicas de los circuitos de carreras y el espíritu competitivo del karting profesional.
           </p>
         </div>
 
         <div class="space-y-3">
-          <h4 class="font-bold text-white text-base">Paleta Cromática Oficial</h4>
+          <h4 class="font-bold text-white text-base" data-i18n="modal1.paletteTitle">Paleta Cromática Oficial</h4>
           <!-- PALETA DE COLORES CORREGIDA EN MODAL -->
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs">
             <div class="p-2 rounded bg-white/5 border border-white/10 text-center">
@@ -1397,22 +1869,22 @@
         </div>
 
         <div class="space-y-2">
-          <h4 class="font-bold text-white text-base">Ecosistema Tipográfico</h4>
+          <h4 class="font-bold text-white text-base" data-i18n="modal1.typoTitle">Ecosistema Tipográfico</h4>
           <ul class="list-disc list-inside space-y-1 text-slate-400">
-            <li><strong class="text-white">Cattaneo:</strong> Fuente para isotipos, números de carrera y señalética principal.</li>
-            <li><strong class="text-white">Dynamic:</strong> Tipografía condensada para mensajes promocionales de alta velocidad.</li>
-            <li><strong class="text-white">Itamb:</strong> Para manuales, fichas técnicas de kart y textos secundarios.</li>
+            <li data-i18n="modal1.typo1"><strong class="text-white">Cattaneo:</strong> Fuente para isotipos, números de carrera y señalética principal.</li>
+            <li data-i18n="modal1.typo2"><strong class="text-white">Dynamic:</strong> Tipografía condensada para mensajes promocionales de alta velocidad.</li>
+            <li data-i18n="modal1.typo3"><strong class="text-white">Itamb:</strong> Para manuales, fichas técnicas de kart y textos secundarios.</li>
           </ul>
         </div>
 
         <div class="p-4 rounded-xl bg-brand-orange/10 border border-brand-orange/20 text-xs text-brand-orange">
-          <p class="font-bold">Entregables Desarrollados:</p>
-          <p class="mt-1 text-slate-300">Manual de Identidad, Fotografía en Pista, Social Media Assets, Motion Banners y Campañas Publicitarias.</p>
+          <p class="font-bold" data-i18n="modal1.delivTitle">Entregables Desarrollados:</p>
+          <p class="mt-1 text-slate-300" data-i18n="modal1.delivText">Manual de Identidad, Fotografía en Pista, Social Media Assets, Motion Banners y Campañas Publicitarias.</p>
         </div>
       </div>
 
       <div class="px-6 py-3 bg-brand-black/60 border-t border-white/10 flex justify-end">
-        <button onclick="closeModal('contenderModal')" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold">
+        <button onclick="closeModal('contenderModal')" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold" data-i18n="common.close">
           Cerrar
         </button>
       </div>
@@ -1429,7 +1901,7 @@
       <div class="px-6 py-4 bg-brand-black/70 border-b border-white/10 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-brand-purple"></span>
-          <h3 class="font-display font-bold text-white text-lg">RED EDUCATIVA MÉXICO — Caso de Estudio</h3>
+          <h3 class="font-display font-bold text-white text-lg" data-i18n="modal2.title">RED EDUCATIVA MÉXICO — Caso de Estudio</h3>
         </div>
         <button onclick="closeModal('redEducativaModal')" class="text-slate-400 hover:text-white p-1 rounded-lg">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -1438,47 +1910,47 @@
 
       <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-300">
         <div>
-          <h4 class="font-bold text-white text-base mb-2">Ecosistema Publicitario & Crecimiento</h4>
-          <p class="leading-relaxed">
+          <h4 class="font-bold text-white text-base mb-2" data-i18n="modal2.visionTitle">Ecosistema Publicitario & Crecimiento</h4>
+          <p class="leading-relaxed" data-i18n="modal2.visionText">
             Ecosistema visual y publicitario integral para potenciar el alcance de la institución enfocada en formación para adultos. La estrategia integró fotografía real, videos testimoniales y optimización continua de pauta digital.
           </p>
         </div>
 
         <div class="space-y-3">
-          <h4 class="font-bold text-white text-base">Pilares del Ecosistema</h4>
+          <h4 class="font-bold text-white text-base" data-i18n="modal2.pillarsTitle">Pilares del Ecosistema</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <div class="p-3 rounded-lg bg-white/5 border border-white/5">
-              <p class="font-bold text-sky-400">1. Inclusión</p>
-              <p class="text-slate-400 mt-1">Llegar a personas adultas con deseos de superación mediante tono accesible y claro.</p>
+              <p class="font-bold text-sky-400" data-i18n="modal2.p1t">1. Inclusión</p>
+              <p class="text-slate-400 mt-1" data-i18n="modal2.p1d">Llegar a personas adultas con deseos de superación mediante tono accesible y claro.</p>
             </div>
             <div class="p-3 rounded-lg bg-white/5 border border-white/5">
-              <p class="font-bold text-cyan-400">2. Innovación Educativa</p>
-              <p class="text-slate-400 mt-1">Plataforma intuitiva con diseño UI/UX centrado en facilidad de uso.</p>
+              <p class="font-bold text-cyan-400" data-i18n="modal2.p2t">2. Innovación Educativa</p>
+              <p class="text-slate-400 mt-1" data-i18n="modal2.p2d">Plataforma intuitiva con diseño UI/UX centrado en facilidad de uso.</p>
             </div>
             <div class="p-3 rounded-lg bg-white/5 border border-white/5">
-              <p class="font-bold text-brand-amber">3. Cercanía</p>
-              <p class="text-slate-400 mt-1">Contenido que inspira confianza, resolución de dudas y calidez.</p>
+              <p class="font-bold text-brand-amber" data-i18n="modal2.p3t">3. Cercanía</p>
+              <p class="text-slate-400 mt-1" data-i18n="modal2.p3d">Contenido que inspira confianza, resolución de dudas y calidez.</p>
             </div>
             <div class="p-3 rounded-lg bg-white/5 border border-white/5">
-              <p class="font-bold text-emerald-400">4. Liderazgo</p>
-              <p class="text-slate-400 mt-1">Posicionamiento de egresados como líderes en sus entornos laborales.</p>
+              <p class="font-bold text-emerald-400" data-i18n="modal2.p4t">4. Liderazgo</p>
+              <p class="text-slate-400 mt-1" data-i18n="modal2.p4d">Posicionamiento de egresados como líderes en sus entornos laborales.</p>
             </div>
           </div>
         </div>
 
         <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs">
-          <p class="font-bold text-emerald-400">Métricas Auditadas:</p>
+          <p class="font-bold text-emerald-400" data-i18n="modal2.metricsTitle">Métricas Auditadas:</p>
           <div class="grid grid-cols-2 gap-2 mt-2 font-mono text-slate-200">
-            <div>• +862 Nuevos Leads captados</div>
-            <div>• +112% Tráfico Web Orgánico/Pago</div>
-            <div>• 654k Impresiones en Redes</div>
-            <div>• +60% Incremento en Engagement</div>
+            <div data-i18n="modal2.m1">• +862 Nuevos Leads captados</div>
+            <div data-i18n="modal2.m2">• +112% Tráfico Web Orgánico/Pago</div>
+            <div data-i18n="modal2.m3">• 654k Impresiones en Redes</div>
+            <div data-i18n="modal2.m4">• +60% Incremento en Engagement</div>
           </div>
         </div>
       </div>
 
       <div class="px-6 py-3 bg-brand-black/60 border-t border-white/10 flex justify-end">
-        <button onclick="closeModal('redEducativaModal')" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold">
+        <button onclick="closeModal('redEducativaModal')" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold" data-i18n="common.close">
           Cerrar
         </button>
       </div>
@@ -1502,8 +1974,597 @@
   <!-- JAVASCRIPT LOGIC                                                          -->
   <!-- ========================================================================= -->
   <script>
+    /* ======================================================================= */
+    /* SISTEMA DE IDIOMAS (i18n)                                                */
+    /* ======================================================================= */
+    const translations = {
+      es: {
+        "meta.title": "José Emiliano Sánchez Esquivel | Creador Digital & Productor Audiovisual",
+        "meta.description": "Portafolio profesional de José Emiliano Sánchez Esquivel. Creador Digital, Animador y Productor Audiovisual en Cuernavaca, Morelos. Especialista en conectar estrategia con creatividad visual.",
+
+        "nav.home": "Inicio",
+        "nav.about": "Sobre Mí",
+        "nav.experience": "Experiencia",
+        "nav.skills": "Habilidades",
+        "nav.projects": "Proyectos",
+        "nav.videos": "Videos",
+        "nav.talk": "Hablemos",
+        "nav.mobileContact": "Iniciar Contacto",
+
+        "hero.badge": "Disponible para Producción Audiovisual & Estrategia Digital",
+        "hero.tag1": "Creador Digital",
+        "hero.tag2": "Animador 2D/3D",
+        "hero.tag3": "Productor Audiovisual",
+        "hero.locationLabel": "Ubicación",
+        "hero.locationValue": "Cuernavaca, Morelos",
+        "hero.eduLabel": "Formación Académica",
+        "hero.eduValue": "Lic. Diseño Digital • UTEZ (2021-2025)",
+        "hero.eduValueTitle": "Licenciatura en Diseño Digital - Animación y Producción Audiovisual, UTEZ (2021 - 2025)",
+        "hero.btnExplore": "Explorar Evidencias",
+        "hero.btnContact": "Contacto Directo",
+        "hero.quickConnect": "Conexión Rápida:",
+        "hero.onCamera": "En Cámara",
+        "hero.role": "Creador Digital • Director • Animador",
+        "hero.stat1": "Leads Generados",
+        "hero.stat2": "Tráfico Web",
+        "hero.stat3": "Impresiones",
+
+        "about.tag": "// 01. Visión y Propósito",
+        "about.title": "Creatividad impulsada por <span class=\"text-gradient-orange\">estrategia comercial</span>",
+        "about.quote": "\"Creador digital enfocado en <span class=\"text-brand-amber font-bold\">conectar la estrategia con la creatividad</span> para hacer que las marcas no solo se vean increíbles, sino que también <span class=\"text-brand-orange font-bold underline decoration-brand-orange/50 underline-offset-4\">vendan y cuenten grandes historias</span>.\"",
+        "about.check1": "Enfoque en métricas de conversión y ventas",
+        "about.check2": "Storytelling cinematográfico de alta retención",
+        "about.check3": "Branding visual integral y escalable",
+        "about.card1.title": "Estrategia & Crecimiento",
+        "about.card1.text": "El diseño sin rumbo no genera retorno. Cada pieza audiovisual, campaña de Google/Facebook Ads y diseño UI/UX se orienta a captar leads, fidelizar y multiplicar la tasa de conversión.",
+        "about.card2.title": "Storytelling & Ritmo",
+        "about.card2.text": "Construcción narrativa con gancho inicial en los primeros 3 segundos. Montaje dinámico, diseño sonoro envolvente y etalonaje (color grading) que transmiten el alma de la marca.",
+        "about.card3.title": "Identidad Visual & 3D",
+        "about.card3.text": "Desarrollo de universos de marca consistentes: logotipos, paletas cromáticas estructuradas, manuales de identidad y animaciones en Motion Graphics y Blender con estándar pro.",
+
+        "exp.tag": "// 02. Trayectoria Laboral",
+        "exp.title": "Experiencia Profesional y <span class=\"text-gradient-purple\">Resultados Clave</span>",
+        "exp.desc": "Historial de roles estratégicos demostrando impacto en generación de tráfico, crecimiento de comunidad y creación publicitaria integral.",
+        "exp.respLabel": "Responsabilidades Clave:",
+        "exp.metricsLabel": "Métricas de Rendimiento Obtenidas:",
+        "exp.m1": "Nuevos Leads",
+        "exp.m4": "Engagement",
+        "exp.job1.badge": "Rol Destacado",
+        "exp.job1.r1": "Captura y edición de fotografía profesional para plataformas de aprendizaje y branding institucional.",
+        "exp.job1.r2": "Campañas publicitarias de alto rendimiento en Google Ads y Facebook Ads orientadas a captación de prospectos.",
+        "exp.job1.r3": "Gestión de cuentas multicanal logrando incrementos de engagement comprobados del 60%.",
+        "exp.job1.r4": "Diseño UI/UX para plataforma web, materiales impresos y conceptualización de campañas creativas para Facebook Ads, Google Ads y TikTok Ads.",
+        "exp.job2.role": "Diseñador Gráfico",
+        "exp.job2.r1": "Captura y edición de fotografía de alta velocidad y ambiente deportivo.",
+        "exp.job2.r2": "Content creator y community manager para potenciar la presencia de marca.",
+        "exp.job2.r3": "Creación integral de logotipos, manuales de marca e identidad gráfica visual.",
+        "exp.job3.role": "Community Manager",
+        "exp.job3.r1": "Creación de contenido publicitario y piezas gráficas para diversas empresas comerciales.",
+        "exp.job3.r2": "Creación y estandarización de identidades visuales corporativas.",
+        "exp.job3.r3": "Gestión estratégica y calendarización de cuentas en redes sociales.",
+
+        "exp.job4.badge": "Freelance",
+        "exp.job4.role": "Diseñador Gráfico & Creador Audiovisual",
+        "exp.job4.period": "Freelance",
+        "exp.job4.r1": "Diseño de material publicitario impreso y de gran formato (lonas, banners corporativos, tarjetas de presentación).",
+        "exp.job4.r2": "Edición de video e imagen digital para comunicación institucional y promocional.",
+        "exp.job4.r3": "Mantener la coherencia visual e identidad de marca respetando la sensibilidad del sector.",
+        "exp.job4.tag1": "Gran Formato",
+        "exp.job4.tag2": "Edición de Video",
+        "exp.job4.tag3": "Identidad de Marca",
+
+        "exp.job5.badge": "Freelance",
+        "exp.job5.role": "Content Creator & Digital Designer",
+        "exp.job5.period": "Freelance",
+        "exp.job5.r1": "Creación de contenido audiovisual y piezas gráficas semanales para 3 marcas (Klean Building Services, Krissia's Cleaning Services y Krissia García).",
+        "exp.job5.r2": "Producción de videos e imágenes orientados a servicios corporativos, limpieza residencial profunda y cursos/coaching de emprendimiento.",
+        "exp.job5.tag1": "3 Marcas",
+        "exp.job5.tag2": "Contenido Semanal",
+        "exp.job5.tag3": "Coaching & Cursos",
+
+        "skills.tag": "// 03. Capacidades Técnicas",
+        "skills.title": "Competencias y <span class=\"text-gradient-orange\">Arsenal Creativo</span>",
+        "skills.desc": "Dominio de software de estándar de la industria y habilidades especializadas en postproducción, diseño y narrativa audiovisual.",
+        "skills.matrixTitle": "Nivel de Dominio Técnico",
+        "skills.scoreLabel": "Puntaje %",
+        "skills.s1.name": "Edición de Video",
+        "skills.s1.desc": "Corte rítmico, narrativa publicitaria, ritmo cinemático y formatos multiplataforma.",
+        "skills.s2.name": "Storytelling",
+        "skills.s2.desc": "Estructura dramática, captación de atención y conexión emocional con el espectador.",
+        "skills.s3.name": "Color Grading",
+        "skills.s3.desc": "Corrección de color, calibración de tono de piel y creación de atmósferas estilizadas.",
+        "skills.s4.name": "Motion Graphics",
+        "skills.s4.desc": "Animación de tipografías cinéticas, títulos, transiciones y elementos de identidad en movimiento.",
+        "skills.s5.name": "Sound Design",
+        "skills.s5.desc": "Efectos sonoros (SFX), mezcla estéreo, foley y ecualización de audio para máxima inmersión.",
+        "skills.softTitle": "Software & Herramientas",
+        "skills.softDesc": "Ecosistema técnico utilizado para proyectos comerciales.",
+        "skills.sw1.desc": "Edición & Montaje",
+        "skills.sw2.desc": "Motion & VFX",
+        "skills.sw3.desc": "Retoque & Gráficos",
+        "skills.sw4.desc": "UI/UX & Prototipado",
+        "skills.sw5.desc": "3D & Animación",
+        "skills.sw6.desc": "Pauta & Conversión",
+        "skills.utezTitle": "Formación Universitaria UTEZ",
+        "skills.utezDesc": "Lic. en Diseño Digital con especialidad en Animación y Producción Audiovisual (2021-2025).",
+
+        "projects.tag": "// 04. Casos de Estudio",
+        "projects.title": "Proyectos <span class=\"text-gradient-orange\">Destacados</span>",
+        "projects.desc": "Soluciones visuales que articulan identidad corporativa, sistemas tipográficos y campañas de impacto a gran escala.",
+
+        "proj1.badge": "Branding & High Speed",
+        "proj1.subtitle": "Identidad Visual & Deporte Motor",
+        "proj1.desc": "Complejo de go-karts de alto rendimiento. Desarrollo integral de branding e identidad visual enfocada en velocidad, dinamismo y espíritu competitivo para posicionar la experiencia como referente de adrenalina deportiva.",
+        "proj1.paletteLabel": "Paleta de Colores Oficial (Clic para copiar HEX):",
+        "proj1.typoLabel": "Tipografías de Identidad:",
+        "proj1.typo1": "(Display Principal)",
+        "proj1.typo2": "(Acentos & Titulares)",
+        "proj1.typo3": "(Cuerpo Técnico)",
+        "proj1.footer": "Manual de Marca & Estilo",
+
+        "proj2.badge": "EdTech & Growth Ecosistema",
+        "proj2.highImpact": "Alto Impacto",
+        "proj2.subtitle": "Ecosistema Publicitario & UI/UX",
+        "proj2.desc": "Ecosistema visual y publicitario integral para potenciar el alcance de la institución enfocada en formación para adultos. Se implementó una estrategia coordinada entre material publicitario para Google/Facebook Ads y diseño web UI/UX.",
+        "proj2.pillarsLabel": "Pilares Conceptuales de Marca:",
+        "proj2.p1t": "Inclusión",
+        "proj2.p1d": "Educación accesible y empática para el desarrollo de adultos.",
+        "proj2.p2t": "Innovación Educativa",
+        "proj2.p2d": "Metodologías de vanguardia y plataformas web interactivas.",
+        "proj2.p3t": "Cercanía",
+        "proj2.p3d": "Comunicación cálida, humana y personalizada con cada estudiante.",
+        "proj2.p4t": "Liderazgo",
+        "proj2.p4d": "Impulso profesional hacia metas y mejores oportunidades.",
+        "proj2.impactLabel": "Impacto Total de Campañas:",
+        "proj2.footer": "Estrategia Multicanal & UI/UX",
+
+        "videos.tag": "// 05. Showcase Audiovisual",
+        "videos.title": "Edición de Video & <span class=\"text-gradient-orange\">Contenido Vertical</span>",
+        "videos.desc": "Piezas audiovisuales para redes sociales con formato vertical 9:16, optimizadas para máxima retención y engagement en TikTok, Reels e Instagram.",
+        "videos.edited": "Editado",
+        "videos.noSupport": "Tu navegador no soporta video HTML5.",
+        "videos.v1.badge": "TikTok",
+        "videos.v1.cat": "Vertical",
+        "videos.v1.title": "Reel Publicitario 01",
+        "videos.v1.desc": "Montaje rítmico con cortes rápidos, transiciones dinámicas y diseño sonoro orientado a retención en los primeros 3 segundos.",
+        "videos.v2.badge": "TikTok",
+        "videos.v2.cat": "Vertical",
+        "videos.v2.title": "Reel Publicitario 02",
+        "videos.v2.desc": "Storytelling breve con enfoque en gancho emocional, color grading estilizado y call to action claro al cierre.",
+        "videos.v3.badge": "TikTok",
+        "videos.v3.cat": "Vertical",
+        "videos.v3.title": "Reel Publicitario 03",
+        "videos.v3.desc": "Composición audiovisual con motion graphics, tipografía cinética y diseño sonoro inmersivo para máximo engagement.",
+        "videos.ctaTitle": "¿Necesitas contenido vertical para tu marca?",
+        "videos.ctaDesc": "Produzco ediciones optimizadas para TikTok, Reels y Shorts con estrategia de retención.",
+        "videos.ctaBtn": "Cotizar Edición",
+
+        "color.orange": "Naranja",
+        "color.yellow": "Amarillo",
+        "color.white": "Blanco",
+        "color.black": "Negro",
+
+        "contact.tag": "// 06. Conexión Directa",
+        "contact.title": "¿Listo para crear algo <br> <span class=\"text-gradient-orange\">extraordinario juntos?</span>",
+        "contact.desc": "Ya sea para la conceptualización de tu próxima campaña publicitaria, producción audiovisual cinematográfica, animación 2D/3D o identidad de marca completa: hablemos y hagamos que suceda.",
+        "contact.phoneLabel": "Teléfono & WhatsApp",
+        "contact.emailLabel": "Correo Electrónico",
+        "contact.igLabel": "Instagram Personal & Creativo",
+        "contact.igBtn": "Seguir en Instagram",
+        "contact.formTitle": "Mensaje Rápido",
+        "contact.formDesc": "Envía un mensaje directo pre-configurado para respuesta inmediata.",
+        "contact.formName": "Tu Nombre o Empresa",
+        "contact.formNamePh": "Ej. Roberto Martínez / Marca X",
+        "contact.formType": "Tipo de Proyecto",
+        "contact.opt1": "Producción Audiovisual / Video",
+        "contact.opt2": "Animación & Motion Graphics",
+        "contact.opt3": "Branding e Identidad Visual",
+        "contact.opt4": "Campañas Publicitarias Ads",
+        "contact.opt5": "Colaboración Profesional",
+        "contact.formMsg": "Mensaje o Breve Idea",
+        "contact.formMsgPh": "Hola Emiliano, queremos platicar sobre...",
+        "contact.formSubmit": "Enviar por WhatsApp / Correo",
+        "contact.copyright": "© 2026 José Emiliano Sánchez Esquivel. Todos los derechos reservados.",
+        "contact.location": "Cuernavaca, Morelos, México",
+        "contact.degree": "Lic. Diseño Digital UTEZ",
+
+        "common.copy": "Copiar",
+        "common.write": "Escribir",
+        "common.close": "Cerrar",
+        "common.inspectCase": "Inspeccionar Caso Completo",
+        "common.copyColor": "Copiar color",
+        "common.copyEmail": "Copiar correo",
+        "common.copyPhone": "Copiar teléfono",
+
+        "modal1.title": "CONTENDER E-KARTING — Caso de Estudio",
+        "modal1.visionTitle": "Visión del Proyecto",
+        "modal1.visionText": "Complejo de go-karts de alto rendimiento. Se desarrolló una identidad visual integral inspirada en las líneas aerodinámicas de los circuitos de carreras y el espíritu competitivo del karting profesional.",
+        "modal1.paletteTitle": "Paleta Cromática Oficial",
+        "modal1.typoTitle": "Ecosistema Tipográfico",
+        "modal1.typo1": "<strong class=\"text-white\">Cattaneo:</strong> Fuente para isotipos, números de carrera y señalética principal.",
+        "modal1.typo2": "<strong class=\"text-white\">Dynamic:</strong> Tipografía condensada para mensajes promocionales de alta velocidad.",
+        "modal1.typo3": "<strong class=\"text-white\">Itamb:</strong> Para manuales, fichas técnicas de kart y textos secundarios.",
+        "modal1.delivTitle": "Entregables Desarrollados:",
+        "modal1.delivText": "Manual de Identidad, Fotografía en Pista, Social Media Assets, Motion Banners y Campañas Publicitarias.",
+
+        "modal2.title": "RED EDUCATIVA MÉXICO — Caso de Estudio",
+        "modal2.visionTitle": "Ecosistema Publicitario & Crecimiento",
+        "modal2.visionText": "Ecosistema visual y publicitario integral para potenciar el alcance de la institución enfocada en formación para adultos. La estrategia integró fotografía real, videos testimoniales y optimización continua de pauta digital.",
+        "modal2.pillarsTitle": "Pilares del Ecosistema",
+        "modal2.p1t": "1. Inclusión",
+        "modal2.p1d": "Llegar a personas adultas con deseos de superación mediante tono accesible y claro.",
+        "modal2.p2t": "2. Innovación Educativa",
+        "modal2.p2d": "Plataforma intuitiva con diseño UI/UX centrado en facilidad de uso.",
+        "modal2.p3t": "3. Cercanía",
+        "modal2.p3d": "Contenido que inspira confianza, resolución de dudas y calidez.",
+        "modal2.p4t": "4. Liderazgo",
+        "modal2.p4d": "Posicionamiento de egresados como líderes en sus entornos laborales.",
+        "modal2.metricsTitle": "Métricas Auditadas:",
+        "modal2.m1": "• +862 Nuevos Leads captados",
+        "modal2.m2": "• +112% Tráfico Web Orgánico/Pago",
+        "modal2.m3": "• 654k Impresiones en Redes",
+        "modal2.m4": "• +60% Incremento en Engagement",
+
+        "toast.copied": "Copiado al portapapeles",
+        "toast.emailCopied": "Correo copiado al portapapeles",
+        "toast.phoneCopied": "Teléfono copiado",
+        "toast.colorCopied": "Color %s copiado",
+        "toast.colorsCopied": "Colores %s copiados",
+        "toast.redirect": "¡Redirigiendo a WhatsApp con tu mensaje!",
+        "toast.copyFallback": "Elemento copiado"
+      },
+
+      en: {
+        "meta.title": "José Emiliano Sánchez Esquivel | Digital Creator & Audiovisual Producer",
+        "meta.description": "Professional portfolio of José Emiliano Sánchez Esquivel. Digital Creator, Animator and Audiovisual Producer based in Cuernavaca, Morelos. Specialist in connecting strategy with visual creativity.",
+
+        "nav.home": "Home",
+        "nav.about": "About Me",
+        "nav.experience": "Experience",
+        "nav.skills": "Skills",
+        "nav.projects": "Projects",
+        "nav.videos": "Videos",
+        "nav.talk": "Let's Talk",
+        "nav.mobileContact": "Start a Conversation",
+
+        "hero.badge": "Available for Audiovisual Production & Digital Strategy",
+        "hero.tag1": "Digital Creator",
+        "hero.tag2": "2D/3D Animator",
+        "hero.tag3": "Audiovisual Producer",
+        "hero.locationLabel": "Location",
+        "hero.locationValue": "Cuernavaca, Morelos",
+        "hero.eduLabel": "Academic Background",
+        "hero.eduValue": "B.A. Digital Design • UTEZ (2021-2025)",
+        "hero.eduValueTitle": "Bachelor's Degree in Digital Design - Animation & Audiovisual Production, UTEZ (2021 - 2025)",
+        "hero.btnExplore": "Explore the Work",
+        "hero.btnContact": "Direct Contact",
+        "hero.quickConnect": "Quick Connect:",
+        "hero.onCamera": "On Camera",
+        "hero.role": "Digital Creator • Director • Animator",
+        "hero.stat1": "Leads Generated",
+        "hero.stat2": "Web Traffic",
+        "hero.stat3": "Impressions",
+
+        "about.tag": "// 01. Vision & Purpose",
+        "about.title": "Creativity driven by <span class=\"text-gradient-orange\">business strategy</span>",
+        "about.quote": "\"Digital creator focused on <span class=\"text-brand-amber font-bold\">connecting strategy with creativity</span> so brands don't just look amazing, but also <span class=\"text-brand-orange font-bold underline decoration-brand-orange/50 underline-offset-4\">sell and tell great stories</span>.\"",
+        "about.check1": "Focused on conversion and sales metrics",
+        "about.check2": "High-retention cinematic storytelling",
+        "about.check3": "Comprehensive, scalable visual branding",
+        "about.card1.title": "Strategy & Growth",
+        "about.card1.text": "Design without direction generates no return. Every audiovisual piece, Google/Facebook Ads campaign and UI/UX design is aimed at capturing leads, building loyalty and multiplying conversion rates.",
+        "about.card2.title": "Storytelling & Rhythm",
+        "about.card2.text": "Narrative built with a hook in the first 3 seconds. Dynamic editing, immersive sound design and color grading that convey the soul of the brand.",
+        "about.card3.title": "Visual Identity & 3D",
+        "about.card3.text": "Development of consistent brand universes: logos, structured color palettes, identity manuals and Motion Graphics and Blender animations to a professional standard.",
+
+        "exp.tag": "// 02. Work History",
+        "exp.title": "Professional Experience & <span class=\"text-gradient-purple\">Key Results</span>",
+        "exp.desc": "A track record of strategic roles demonstrating impact on traffic generation, community growth and comprehensive advertising creation.",
+        "exp.respLabel": "Key Responsibilities:",
+        "exp.metricsLabel": "Performance Metrics Achieved:",
+        "exp.m1": "New Leads",
+        "exp.m4": "Engagement",
+        "exp.job1.badge": "Featured Role",
+        "exp.job1.r1": "Professional photography capture and editing for learning platforms and institutional branding.",
+        "exp.job1.r2": "High-performance advertising campaigns on Google Ads and Facebook Ads focused on prospect acquisition.",
+        "exp.job1.r3": "Multi-channel account management achieving proven 60% engagement increases.",
+        "exp.job1.r4": "UI/UX design for the web platform, print materials and creative campaign conceptualization for Facebook Ads, Google Ads and TikTok Ads.",
+        "exp.job2.role": "Graphic Designer",
+        "exp.job2.r1": "High-speed sports photography capture and editing.",
+        "exp.job2.r2": "Content creator and community manager to boost brand presence.",
+        "exp.job2.r3": "Comprehensive creation of logos, brand manuals and visual graphic identity.",
+        "exp.job3.role": "Community Manager",
+        "exp.job3.r1": "Creation of advertising content and graphic pieces for various commercial companies.",
+        "exp.job3.r2": "Creation and standardization of corporate visual identities.",
+        "exp.job3.r3": "Strategic management and scheduling of social media accounts.",
+
+        "exp.job4.badge": "Freelance",
+        "exp.job4.role": "Graphic Designer & Audiovisual Creator",
+        "exp.job4.period": "Freelance",
+        "exp.job4.r1": "Design of printed and large-format advertising material (vinyl banners, corporate banners, business cards).",
+        "exp.job4.r2": "Video and digital image editing for institutional and promotional communication.",
+        "exp.job4.r3": "Maintaining visual coherence and brand identity while respecting the sector's sensitivity.",
+        "exp.job4.tag1": "Large Format",
+        "exp.job4.tag2": "Video Editing",
+        "exp.job4.tag3": "Brand Identity",
+
+        "exp.job5.badge": "Freelance",
+        "exp.job5.role": "Content Creator & Digital Designer",
+        "exp.job5.period": "Freelance",
+        "exp.job5.r1": "Creation of weekly audiovisual content and graphic pieces for 3 brands (Klean Building Services, Krissia's Cleaning Services and Krissia García).",
+        "exp.job5.r2": "Production of videos and images oriented to corporate services, deep residential cleaning and entrepreneurship courses/coaching.",
+        "exp.job5.tag1": "3 Brands",
+        "exp.job5.tag2": "Weekly Content",
+        "exp.job5.tag3": "Coaching & Courses",
+
+        "skills.tag": "// 03. Technical Capabilities",
+        "skills.title": "Competencies & <span class=\"text-gradient-orange\">Creative Arsenal</span>",
+        "skills.desc": "Mastery of industry-standard software and specialized skills in post-production, design and audiovisual narrative.",
+        "skills.matrixTitle": "Technical Proficiency Level",
+        "skills.scoreLabel": "Score %",
+        "skills.s1.name": "Video Editing",
+        "skills.s1.desc": "Rhythmic cutting, advertising narrative, cinematic pacing and multiplatform formats.",
+        "skills.s2.name": "Storytelling",
+        "skills.s2.desc": "Dramatic structure, attention capture and emotional connection with the viewer.",
+        "skills.s3.name": "Color Grading",
+        "skills.s3.desc": "Color correction, skin tone calibration and creation of stylized atmospheres.",
+        "skills.s4.name": "Motion Graphics",
+        "skills.s4.desc": "Animation of kinetic typography, titles, transitions and identity elements in motion.",
+        "skills.s5.name": "Sound Design",
+        "skills.s5.desc": "Sound effects (SFX), stereo mixing, foley and audio equalization for maximum immersion.",
+        "skills.softTitle": "Software & Tools",
+        "skills.softDesc": "Technical ecosystem used for commercial projects.",
+        "skills.sw1.desc": "Editing & Assembly",
+        "skills.sw2.desc": "Motion & VFX",
+        "skills.sw3.desc": "Retouching & Graphics",
+        "skills.sw4.desc": "UI/UX & Prototyping",
+        "skills.sw5.desc": "3D & Animation",
+        "skills.sw6.desc": "Ads & Conversion",
+        "skills.utezTitle": "UTEZ University Degree",
+        "skills.utezDesc": "B.A. in Digital Design with a specialization in Animation and Audiovisual Production (2021-2025).",
+
+        "projects.tag": "// 04. Case Studies",
+        "projects.title": "Featured <span class=\"text-gradient-orange\">Projects</span>",
+        "projects.desc": "Visual solutions that articulate corporate identity, typographic systems and large-scale impact campaigns.",
+
+        "proj1.badge": "Branding & High Speed",
+        "proj1.subtitle": "Visual Identity & Motorsport",
+        "proj1.desc": "High-performance go-kart complex. Comprehensive development of branding and visual identity focused on speed, dynamism and competitive spirit to position the experience as a benchmark for sports adrenaline.",
+        "proj1.paletteLabel": "Official Color Palette (Click to copy HEX):",
+        "proj1.typoLabel": "Identity Typefaces:",
+        "proj1.typo1": "(Primary Display)",
+        "proj1.typo2": "(Accents & Headlines)",
+        "proj1.typo3": "(Technical Body)",
+        "proj1.footer": "Brand & Style Manual",
+
+        "proj2.badge": "EdTech & Growth Ecosystem",
+        "proj2.highImpact": "High Impact",
+        "proj2.subtitle": "Advertising & UI/UX Ecosystem",
+        "proj2.desc": "Comprehensive visual and advertising ecosystem to boost the reach of an institution focused on adult education. A coordinated strategy was implemented between advertising material for Google/Facebook Ads and UI/UX web design.",
+        "proj2.pillarsLabel": "Conceptual Brand Pillars:",
+        "proj2.p1t": "Inclusion",
+        "proj2.p1d": "Accessible and empathetic education for adult development.",
+        "proj2.p2t": "Educational Innovation",
+        "proj2.p2d": "Cutting-edge methodologies and interactive web platforms.",
+        "proj2.p3t": "Warmth",
+        "proj2.p3d": "Warm, human and personalized communication with every student.",
+        "proj2.p4t": "Leadership",
+        "proj2.p4d": "Professional momentum toward goals and better opportunities.",
+        "proj2.impactLabel": "Total Campaign Impact:",
+        "proj2.footer": "Multi-channel Strategy & UI/UX",
+
+        "videos.tag": "// 05. Audiovisual Showcase",
+        "videos.title": "Video Editing & <span class=\"text-gradient-orange\">Vertical Content</span>",
+        "videos.desc": "Audiovisual pieces for social media in 9:16 vertical format, optimized for maximum retention and engagement on TikTok, Reels and Instagram.",
+        "videos.edited": "Edited",
+        "videos.noSupport": "Your browser does not support HTML5 video.",
+        "videos.v1.badge": "TikTok",
+        "videos.v1.cat": "Vertical",
+        "videos.v1.title": "Ad Reel 01",
+        "videos.v1.desc": "Rhythmic editing with fast cuts, dynamic transitions and sound design oriented to retention in the first 3 seconds.",
+        "videos.v2.badge": "TikTok",
+        "videos.v2.cat": "Vertical",
+        "videos.v2.title": "Ad Reel 02",
+        "videos.v2.desc": "Short storytelling with an emotional hook, stylized color grading and a clear call to action at the close.",
+        "videos.v3.badge": "TikTok",
+        "videos.v3.cat": "Vertical",
+        "videos.v3.title": "Ad Reel 03",
+        "videos.v3.desc": "Audiovisual composition with motion graphics, kinetic typography and immersive sound design for maximum engagement.",
+        "videos.ctaTitle": "Need vertical content for your brand?",
+        "videos.ctaDesc": "I produce optimized edits for TikTok, Reels and Shorts with a retention strategy.",
+        "videos.ctaBtn": "Request Editing Quote",
+
+        "color.orange": "Orange",
+        "color.yellow": "Yellow",
+        "color.white": "White",
+        "color.black": "Black",
+
+        "contact.tag": "// 06. Direct Connection",
+        "contact.title": "Ready to create something <br> <span class=\"text-gradient-orange\">extraordinary together?</span>",
+        "contact.desc": "Whether it's conceptualizing your next advertising campaign, cinematic audiovisual production, 2D/3D animation or a complete brand identity: let's talk and make it happen.",
+        "contact.phoneLabel": "Phone & WhatsApp",
+        "contact.emailLabel": "Email Address",
+        "contact.igLabel": "Personal & Creative Instagram",
+        "contact.igBtn": "Follow on Instagram",
+        "contact.formTitle": "Quick Message",
+        "contact.formDesc": "Send a pre-configured direct message for an immediate reply.",
+        "contact.formName": "Your Name or Company",
+        "contact.formNamePh": "e.g. Robert Martinez / Brand X",
+        "contact.formType": "Project Type",
+        "contact.opt1": "Audiovisual Production / Video",
+        "contact.opt2": "Animation & Motion Graphics",
+        "contact.opt3": "Branding & Visual Identity",
+        "contact.opt4": "Advertising Campaigns (Ads)",
+        "contact.opt5": "Professional Collaboration",
+        "contact.formMsg": "Message or Brief Idea",
+        "contact.formMsgPh": "Hi Emiliano, we'd like to talk about...",
+        "contact.formSubmit": "Send via WhatsApp / Email",
+        "contact.copyright": "© 2026 José Emiliano Sánchez Esquivel. All rights reserved.",
+        "contact.location": "Cuernavaca, Morelos, Mexico",
+        "contact.degree": "B.A. Digital Design UTEZ",
+
+        "common.copy": "Copy",
+        "common.write": "Write",
+        "common.close": "Close",
+        "common.inspectCase": "View Full Case Study",
+        "common.copyColor": "Copy color",
+        "common.copyEmail": "Copy email",
+        "common.copyPhone": "Copy phone",
+
+        "modal1.title": "CONTENDER E-KARTING — Case Study",
+        "modal1.visionTitle": "Project Vision",
+        "modal1.visionText": "High-performance go-kart complex. A comprehensive visual identity was developed, inspired by the aerodynamic lines of racing circuits and the competitive spirit of professional karting.",
+        "modal1.paletteTitle": "Official Color Palette",
+        "modal1.typoTitle": "Typographic Ecosystem",
+        "modal1.typo1": "<strong class=\"text-white\">Cattaneo:</strong> Typeface for logos, race numbers and primary signage.",
+        "modal1.typo2": "<strong class=\"text-white\">Dynamic:</strong> Condensed typeface for high-speed promotional messages.",
+        "modal1.typo3": "<strong class=\"text-white\">Itamb:</strong> For manuals, kart technical sheets and secondary text.",
+        "modal1.delivTitle": "Deliverables Developed:",
+        "modal1.delivText": "Identity Manual, On-Track Photography, Social Media Assets, Motion Banners and Advertising Campaigns.",
+
+        "modal2.title": "RED EDUCATIVA MÉXICO — Case Study",
+        "modal2.visionTitle": "Advertising & Growth Ecosystem",
+        "modal2.visionText": "Comprehensive visual and advertising ecosystem to boost the reach of an institution focused on adult education. The strategy integrated real photography, testimonial videos and continuous optimization of digital advertising.",
+        "modal2.pillarsTitle": "Ecosystem Pillars",
+        "modal2.p1t": "1. Inclusion",
+        "modal2.p1d": "Reaching adults who want to improve their lives through an accessible, clear tone.",
+        "modal2.p2t": "2. Educational Innovation",
+        "modal2.p2d": "Intuitive platform with a UI/UX design focused on ease of use.",
+        "modal2.p3t": "3. Warmth",
+        "modal2.p3d": "Content that inspires trust, answers questions and feels human.",
+        "modal2.p4t": "4. Leadership",
+        "modal2.p4d": "Positioning graduates as leaders in their work environments.",
+        "modal2.metricsTitle": "Audited Metrics:",
+        "modal2.m1": "• +862 New leads captured",
+        "modal2.m2": "• +112% Organic/Paid web traffic",
+        "modal2.m3": "• 654k Social media impressions",
+        "modal2.m4": "• +60% Increase in engagement",
+
+        "toast.copied": "Copied to clipboard",
+        "toast.emailCopied": "Email copied to clipboard",
+        "toast.phoneCopied": "Phone copied",
+        "toast.colorCopied": "Color %s copied",
+        "toast.colorsCopied": "Colors %s copied",
+        "toast.redirect": "Redirecting to WhatsApp with your message!",
+        "toast.copyFallback": "Element copied"
+      }
+    };
+
+    let currentLang = 'es';
+
+    function t(key) {
+      const dict = translations[currentLang] || translations.es;
+      return dict[key] !== undefined ? dict[key] : key;
+    }
+
+    function applyLanguage(lang) {
+      if (!translations[lang]) lang = 'es';
+      currentLang = lang;
+
+      const dict = translations[lang];
+
+      document.documentElement.setAttribute('lang', lang);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+      });
+
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (dict[key] !== undefined) el.setAttribute('title', dict[key]);
+      });
+
+      if (dict['meta.title']) document.title = dict['meta.title'];
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
+
+      try { localStorage.setItem('portfolio-lang', lang); } catch (e) {}
+
+      updateLangButtons();
+    }
+
+    function updateLangButtons() {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn.dataset.lang === currentLang) {
+          btn.classList.add('lang-btn-active');
+        } else {
+          btn.classList.remove('lang-btn-active');
+        }
+      });
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    });
+
+    /* ======================================================================= */
+    /* LÓGICA GENERAL DEL SITIO                                                 */
+    /* ======================================================================= */
     document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
+
+      let savedLang = 'es';
+      try { savedLang = localStorage.getItem('portfolio-lang') || 'es'; } catch (e) {}
+      applyLanguage(savedLang);
+
+      /* ============ CONTROLADORES DE VIDEO ============ */
+      // Play overlay: al hacer clic, reproduce el video y oculta el overlay
+      document.querySelectorAll('.video-play-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const targetId = overlay.getAttribute('data-video-target');
+          const video = document.getElementById(targetId);
+          if (!video) return;
+
+          // Pausar los otros videos para evitar reproducción simultánea
+          document.querySelectorAll('#videos video').forEach(v => {
+            if (v !== video) {
+              v.pause();
+              const ov = document.querySelector(`.video-play-overlay[data-video-target="${v.id}"]`);
+              if (ov) ov.classList.remove('hidden-overlay');
+            }
+          });
+
+          if (video.paused) {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                overlay.classList.add('hidden-overlay');
+              }).catch(err => {
+                console.warn('No se pudo reproducir el video:', err);
+              });
+            }
+          } else {
+            video.pause();
+            overlay.classList.remove('hidden-overlay');
+          }
+        });
+      });
+
+      // Al pausar o terminar el video, vuelve a mostrar el overlay
+      document.querySelectorAll('#videos video').forEach(video => {
+        video.addEventListener('pause', () => {
+          if (!video.seeking && !video.ended) {
+            const ov = document.querySelector(`.video-play-overlay[data-video-target="${video.id}"]`);
+            if (ov) ov.classList.remove('hidden-overlay');
+          }
+        });
+        video.addEventListener('ended', () => {
+          const ov = document.querySelector(`.video-play-overlay[data-video-target="${video.id}"]`);
+          if (ov) ov.classList.remove('hidden-overlay');
+        });
+        video.addEventListener('play', () => {
+          const ov = document.querySelector(`.video-play-overlay[data-video-target="${video.id}"]`);
+          if (ov) ov.classList.add('hidden-overlay');
+        });
+      });
     });
 
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1532,9 +2593,14 @@
       });
     });
 
-    function copyToClipboard(text, customMessage = "Copiado al portapapeles") {
+    function copyToClipboard(text, messageKey = 'toast.copied') {
+      let message = t(messageKey);
+      if (message.indexOf('%s') !== -1) {
+        message = message.replace('%s', text);
+      }
+
       navigator.clipboard.writeText(text).then(() => {
-        showToast(customMessage);
+        showToast(message);
       }).catch(err => {
         const textArea = document.createElement("textarea");
         textArea.value = text;
@@ -1542,7 +2608,7 @@
         textArea.select();
         try {
           document.execCommand('copy');
-          showToast(customMessage);
+          showToast(message);
         } catch (e) {
           console.error('Error al copiar', e);
         }
@@ -1604,10 +2670,13 @@
       const type = document.getElementById('projectType').value;
       const message = document.getElementById('senderMessage').value;
 
-      const formattedText = `Hola Emiliano! Soy ${name}. Me contacto para cotizar/conversar sobre un proyecto de *${type}*:\n\n"${message}"`;
+      const formattedText = currentLang === 'en'
+        ? `Hi Emiliano! I'm ${name}. I'm reaching out about a *${type}* project:\n\n"${message}"`
+        : `Hola Emiliano! Soy ${name}. Me contacto para cotizar/conversar sobre un proyecto de *${type}*:\n\n"${message}"`;
+
       const encodedUrl = `https://wa.me/527775663698?text=${encodeURIComponent(formattedText)}`;
       
-      showToast("¡Redirigiendo a WhatsApp con tu mensaje!");
+      showToast(t('toast.redirect'));
       setTimeout(() => {
         window.open(encodedUrl, '_blank');
       }, 700);
